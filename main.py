@@ -54,6 +54,9 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+
+
+
         # SET DEFAULT PAGE
         # ///////////////////////////////////////////////////////////////
         self.ui.app_pages.setCurrentWidget(self.ui.home)
@@ -62,7 +65,8 @@ class MainWindow(QMainWindow):
         # ///////////////////////////////////////////////////////////////
         self.settings = Settings()
 
-        self.check_login
+
+        self.ui.password.keyReleaseEvent = self.check_login
 
         self.custom_btn_top = LeftMenuButton(
             self,
@@ -167,9 +171,11 @@ class MainWindow(QMainWindow):
 
             if  password == "hey":
                 self.ui.password.setStyleSheet("#password:focus { border: 3px solid #bdff00; }")
+                self.ui.bg_app.setCurrentIndex(1)
+
             else:
                 # SET STYLESHEET
-                self.ui.password.setStyleSheet("#password:focus { border: 3px solid rgb(255, 0, 127); }")
+                self.ui.password.setStyleSheet("#password:focus { border: 3px solid rgb(255, 0, 0); }")
 
 
     # SET USERNAME TO MAIN WINDOW
