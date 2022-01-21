@@ -31,6 +31,15 @@ from . resources_rc import *
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
+# -*- coding: utf-8 -*-
+
+################################################################################
+## Form generated from reading UI file 'mainpxUzgZ.ui'
+##
+## Created by: Qt User Interface Compiler version 6.2.2
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -304,22 +313,18 @@ class Ui_MainWindow(object):
 "}")
         self.verticalLayout_2 = QVBoxLayout(self.psd_appPage0)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.frame = QFrame(self.psd_appPage0)
-        self.frame.setObjectName(u"frame")
-        self.frame.setMinimumSize(QSize(0, 400))
-        self.frame.setFrameShape(QFrame.NoFrame)
-        self.frame.setFrameShadow(QFrame.Raised)
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        self.verticalLayout_2.addWidget(self.frame)
+        self.verticalLayout_2.addItem(self.verticalSpacer_2)
 
-        self.lineEdit = QLineEdit(self.psd_appPage0)
-        self.lineEdit.setObjectName(u"lineEdit")
-        self.lineEdit.setMinimumSize(QSize(200, 0))
-        self.lineEdit.setMaximumSize(QSize(400, 16777215))
-        self.lineEdit.setLayoutDirection(Qt.LeftToRight)
-        self.lineEdit.setAlignment(Qt.AlignCenter)
+        self.password = QLineEdit(self.psd_appPage0)
+        self.password.setObjectName(u"password")
+        self.password.setMinimumSize(QSize(200, 0))
+        self.password.setMaximumSize(QSize(400, 16777215))
+        self.password.setLayoutDirection(Qt.LeftToRight)
+        self.password.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout_2.addWidget(self.lineEdit, 0, Qt.AlignHCenter)
+        self.verticalLayout_2.addWidget(self.password, 0, Qt.AlignHCenter)
 
         self.verticalSpacer = QSpacerItem(20, 10, QSizePolicy.Minimum, QSizePolicy.MinimumExpanding)
 
@@ -671,7 +676,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.lineEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Who are you?", None))
+        self.password.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Who are you?", None))
         self.search_line_edit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Search messages", None))
         self.label_top.setText(QCoreApplication.translate("MainWindow", u"Signal 80%", None))
         self.label_bottom.setText(QCoreApplication.translate("MainWindow", u"PyBlackBOX server signal", None))
