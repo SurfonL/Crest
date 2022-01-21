@@ -51,23 +51,24 @@ class LoginWindow(QMainWindow):
         # REMOVE TITLE BAR
         # ///////////////////////////////////////////////////////////////
         self.setWindowFlag(Qt.FramelessWindowHint)
+        self.setWindowFlag(Qt.WindowStaysOnTopHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
 
         # IMPORT CIRCULAR PROGRESS
         # ///////////////////////////////////////////////////////////////
-        self.progress = CircularProgress()
-        self.progress.width = 240
-        self.progress.height = 240
-        self.progress.value = 0
-        self.progress.setFixedSize(self.progress.width, self.progress.height)
-        self.progress.font_size = 20
-        self.progress.add_shadow(True)
-        self.progress.progress_width = 4
-        self.progress.progress_color = QColor("#bdff00")
-        self.progress.text_color = QColor("#E6E6E6")
-        self.progress.bg_color = QColor("#222222")
-        self.progress.setParent(self.ui.preloader)
-        self.progress.show()
+        # self.progress = CircularProgress()
+        # self.progress.width = 240
+        # self.progress.height = 240
+        # self.progress.value = 0
+        # self.progress.setFixedSize(self.progress.width, self.progress.height)
+        # self.progress.font_size = 20
+        # self.progress.add_shadow(True)
+        # self.progress.progress_width = 4
+        # self.progress.progress_color = QColor("#bdff00")
+        # self.progress.text_color = QColor("#E6E6E6")
+        # self.progress.bg_color = QColor("#222222")
+        # self.progress.setParent(self.ui.preloader)
+        # self.progress.show()
 
         # ADD DROP SHADOW
         # ///////////////////////////////////////////////////////////////
@@ -135,7 +136,7 @@ class LoginWindow(QMainWindow):
         global counter
 
         # SET VALUE TO PROGRESS BAR
-        self.progress.set_value(counter)
+        # self.progress.set_value(counter)
 
         # CLOSE SPLASH SCREEN AND OPEN MAIN APP
         if counter >= 100:
@@ -345,5 +346,5 @@ if __name__ == "__main__":
     # APPLICATION
     app = QApplication(sys.argv)
     app.setWindowIcon(QIcon("icon.ico"))
-    window = LoginWindow()
+    window = MainWindow()
     sys.exit(app.exec_())

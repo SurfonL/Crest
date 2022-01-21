@@ -13,6 +13,24 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
 from . resources_rc import *
+# -*- coding: utf-8 -*-
+
+################################################################################
+## Form generated from reading UI file 'mainkUaPev.ui'
+##
+## Created by: Qt User Interface Compiler version 6.2.2
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
+# -*- coding: utf-8 -*-
+
+################################################################################
+## Form generated from reading UI file 'mainqrwKSb.ui'
+##
+## Created by: Qt User Interface Compiler version 6.2.2
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -248,20 +266,76 @@ class Ui_MainWindow(object):
         self.margins_app.setSpacing(0)
         self.margins_app.setObjectName(u"margins_app")
         self.margins_app.setContentsMargins(10, 10, 10, 10)
-        self.bg_app = QFrame(self.stylesheet)
+        self.bg_app = QStackedWidget(self.stylesheet)
         self.bg_app.setObjectName(u"bg_app")
         self.bg_app.setStyleSheet(u"#bg_app { border-radius: 10px; }")
         self.bg_app.setFrameShape(QFrame.NoFrame)
         self.bg_app.setFrameShadow(QFrame.Raised)
         self.bg_app.setLineWidth(0)
-        self.base_Layout = QVBoxLayout(self.bg_app)
+        self.psd_appPage0 = QWidget()
+        self.psd_appPage0.setObjectName(u"psd_appPage0")
+        self.psd_appPage0.setStyleSheet(u"#bg {\n"
+"	background-color: rgb(0, 0, 0);\n"
+"	border-radius: 10px;\n"
+"}\n"
+"QLabel {\n"
+"	color:  rgb(121, 121, 121);\n"
+"	padding-left: 10px;\n"
+"	padding-top: 20px;\n"
+"}\n"
+".QLineEdit {\n"
+"	border: 3px solid rgb(47, 48, 50);\n"
+"	border-radius: 15px;\n"
+"	background-color: rgb(47, 48, 50);\n"
+"	color: rgb(121, 121, 121);\n"
+"	padding-left: 10px;\n"
+"	padding-right: 10px;\n"
+"	background-repeat: none;\n"
+"	background-position: left center;\n"
+"}\n"
+".QLineEdit:hover {\n"
+"	color: rgb(230, 230, 230);\n"
+"	border: 3px solid rgb(62, 63, 66);\n"
+"}\n"
+".QLineEdit:focus {\n"
+"	color: rgb(230, 230, 230);\n"
+"	border: 3px solid rgb(189, 255, 0);\n"
+"	background-color: rgb(14, 14, 15);\n"
+"}")
+        self.verticalLayout_2 = QVBoxLayout(self.psd_appPage0)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.frame = QFrame(self.psd_appPage0)
+        self.frame.setObjectName(u"frame")
+        self.frame.setMinimumSize(QSize(0, 400))
+        self.frame.setFrameShape(QFrame.NoFrame)
+        self.frame.setFrameShadow(QFrame.Raised)
+
+        self.verticalLayout_2.addWidget(self.frame)
+
+        self.lineEdit = QLineEdit(self.psd_appPage0)
+        self.lineEdit.setObjectName(u"lineEdit")
+        self.lineEdit.setMinimumSize(QSize(200, 0))
+        self.lineEdit.setMaximumSize(QSize(400, 16777215))
+        self.lineEdit.setLayoutDirection(Qt.LeftToRight)
+        self.lineEdit.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_2.addWidget(self.lineEdit, 0, Qt.AlignHCenter)
+
+        self.verticalSpacer = QSpacerItem(20, 10, QSizePolicy.Minimum, QSizePolicy.MinimumExpanding)
+
+        self.verticalLayout_2.addItem(self.verticalSpacer)
+
+        self.bg_app.addWidget(self.psd_appPage0)
+        self.bg_appPage1 = QWidget()
+        self.bg_appPage1.setObjectName(u"bg_appPage1")
+        self.base_Layout = QVBoxLayout(self.bg_appPage1)
         self.base_Layout.setSpacing(0)
         self.base_Layout.setObjectName(u"base_Layout")
         self.base_Layout.setContentsMargins(0, 0, 0, 0)
         self.horizontal_Layout = QHBoxLayout()
         self.horizontal_Layout.setSpacing(0)
         self.horizontal_Layout.setObjectName(u"horizontal_Layout")
-        self.left_menu = QFrame(self.bg_app)
+        self.left_menu = QFrame(self.bg_appPage1)
         self.left_menu.setObjectName(u"left_menu")
         self.left_menu.setMinimumSize(QSize(50, 0))
         self.left_menu.setMaximumSize(QSize(50, 16777215))
@@ -311,7 +385,7 @@ class Ui_MainWindow(object):
 
         self.horizontal_Layout.addWidget(self.left_menu)
 
-        self.left_messages = QFrame(self.bg_app)
+        self.left_messages = QFrame(self.bg_appPage1)
         self.left_messages.setObjectName(u"left_messages")
         self.left_messages.setMinimumSize(QSize(243, 0))
         self.left_messages.setMaximumSize(QSize(243, 16777215))
@@ -450,10 +524,9 @@ class Ui_MainWindow(object):
 
         self.horizontal_Layout.addWidget(self.left_messages)
 
-        self.right_content = QFrame(self.bg_app)
+        self.right_content = QFrame(self.bg_appPage1)
         self.right_content.setObjectName(u"right_content")
         font = QFont()
-        font.setFamily(u"Segoe UI")
         font.setPointSize(9)
         font.setBold(False)
         font.setItalic(False)
@@ -498,7 +571,6 @@ class Ui_MainWindow(object):
         self.minimize_app_btn.setMinimumSize(QSize(28, 28))
         self.minimize_app_btn.setMaximumSize(QSize(28, 28))
         font1 = QFont()
-        font1.setFamily(u"Segoe UI")
         font1.setPointSize(9)
         font1.setBold(False)
         font1.setItalic(False)
@@ -515,7 +587,6 @@ class Ui_MainWindow(object):
         self.maximize_restore_app_btn.setMinimumSize(QSize(28, 28))
         self.maximize_restore_app_btn.setMaximumSize(QSize(28, 28))
         font2 = QFont()
-        font2.setFamily(u"Segoe UI")
         font2.setPointSize(9)
         font2.setBold(False)
         font2.setItalic(False)
@@ -584,6 +655,7 @@ class Ui_MainWindow(object):
 
         self.base_Layout.addLayout(self.horizontal_Layout)
 
+        self.bg_app.addWidget(self.bg_appPage1)
 
         self.margins_app.addWidget(self.bg_app)
 
@@ -599,6 +671,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.lineEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Who are you?", None))
         self.search_line_edit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Search messages", None))
         self.label_top.setText(QCoreApplication.translate("MainWindow", u"Signal 80%", None))
         self.label_bottom.setText(QCoreApplication.translate("MainWindow", u"PyBlackBOX server signal", None))
