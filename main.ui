@@ -326,6 +326,9 @@ QLabel {
           <property name="layoutDirection">
            <enum>Qt::LeftToRight</enum>
           </property>
+          <property name="echoMode">
+           <enum>QLineEdit::Password</enum>
+          </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
           </property>
@@ -352,7 +355,7 @@ QLabel {
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="bg_appPage1" native="true">
+      <widget class="QWidget" name="bg_appPage1">
        <layout class="QVBoxLayout" name="base_Layout">
         <property name="spacing">
          <number>0</number>
@@ -691,8 +694,8 @@ QLabel {
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>240</width>
-                  <height>524</height>
+                  <width>100</width>
+                  <height>30</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="messages_layout_base">
