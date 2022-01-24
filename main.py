@@ -89,6 +89,17 @@ class MainWindow(QMainWindow):
         self.ui.bottom_menus_layout.addWidget(self.custom_btn_bottom_1)
         self.ui.bottom_menus_layout.addWidget(self.custom_btn_bottom_2)
 
+
+
+        #left menu 버튼에 기능을 추가하자!
+        # self.custom_btn_top.connect(self.btn_clicked)
+
+
+
+
+
+
+
         # DEBUG
         self.custom_btn_top.clicked.connect(lambda: print(f"{self.settings['app_name']}: clicked"))
         self.custom_btn_top.released.connect(lambda: print(f"{self.custom_btn_top.objectName()}: released"))
