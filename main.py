@@ -171,7 +171,7 @@ class MainWindow(QMainWindow):
 
         add_menus(self, add_user)
 
-        self.maximize_restore()
+        self.maximize_minimize()
         self.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint)
 
         # SHOW MAIN WINDOW
