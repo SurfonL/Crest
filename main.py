@@ -92,7 +92,8 @@ class MainWindow(QMainWindow):
 
 
         #left menu 버튼에 기능을 추가하자!
-        # self.custom_btn_top.connect(self.btn_clicked)
+        #TODO: chat 페이지를 하나 만드는게 더 나을 듯
+        self.custom_btn_top.clicked.connect(self.sec_button_clicked)
 
 
 
@@ -257,32 +258,54 @@ class MainWindow(QMainWindow):
     # /////////////////////////////////////////////////////////////
     # 내가 추가한 함수들
 
+
+    def sec_button_clicked(self):
+        # GET BT CLICKED
+        btn = self.sender()
+
+        # UNSELECT CHATS
+        ui_functions.UiFunctions.deselect_chat_message(self, btn.objectName())
+
+        # SELECT CLICKED
+        if btn.objectName():
+            btn.reset_unread_message()
+            ui_functions.UiFunctions.select_chat_message(self, btn.objectName())
+
+        # LOAD CHAT PAGE
+        if btn.objectName():
+            # REMOVE CHAT
+            for chat in reversed(range(self.ui.chat_layout.count())):
+                self.ui.chat_layout.itemAt(chat).widget().deleteLater()
+            self.chat = None
+
+            # SET CHAT WIDGET
+            self.chat = Chat(btn.user_image, btn.user_name, btn.user_description, btn.objectName(),
+                             self.top_user.user_name)
+
+            # ADD WIDGET TO LAYOUT
+            self.ui.chat_layout.addWidget(self.chat)
+
+            # JUMP TO CHAT PAGE
+            self.ui.app_pages.setCurrentWidget(self.ui.chat)
+
+        # DEBUG
+        print(f"Button {btn.objectName()}, clicked!")
+
+
+
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Shift and Qt.Key_Alt:
-            self.maximize_restore()
+            self.maximize_minimize()
 
-    def closeEvent(self, event):
-            event.ignore()
+    # def closeEvent(self, event):
+    #         event.ignore()
 
-
-    def maximize_restore(self):
+    def maximize_minimize(self):
         global _is_maximized
 
         # CHANGE UI AND RESIZE GRIP
         def change_ui():
-            if not _is_maximized:
-                self.resize(self.width() + 1, self.height() + 1)
-                self.ui.margins_app.setContentsMargins(10, 10, 10, 10)
-                self.ui.maximize_restore_app_btn.setToolTip("Restore")
-                self.ui.maximize_restore_app_btn.setStyleSheet(
-                    "background-image: url(:/icons_svg/images/icons_svg/icon_maximize.svg);")
-                self.ui.bg_app.setStyleSheet("#bg_app { border-radius: 10px; border: 2px solid rgb(30, 32, 33); }")
-                self.left_grip.show()
-                self.right_grip.show()
-                self.top_grip.show()
-                self.bottom_grip.show()
-
-            else:
+            if _is_maximized:
                 self.ui.margins_app.setContentsMargins(0, 0, 0, 0)
                 self.ui.maximize_restore_app_btn.setToolTip("Restore")
                 self.ui.maximize_restore_app_btn.setStyleSheet(
@@ -296,7 +319,7 @@ class MainWindow(QMainWindow):
         # CHECK EVENT
         if self.isMaximized():
             _is_maximized = False
-            self.showNormal()
+            self.showMinimized()
             change_ui()
         else:
             _is_maximized = True
