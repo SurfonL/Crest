@@ -54,6 +54,9 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        self.showMaximized()
+
+
 
         # SET DEFAULT PAGE
         # ///////////////////////////////////////////////////////////////
@@ -63,10 +66,9 @@ class MainWindow(QMainWindow):
         # ///////////////////////////////////////////////////////////////
         self.settings = Settings()
 
-        # 로그인 페이지에서 엔터 누르면 넘어감
+
         self.ui.password.keyReleaseEvent = self.check_login
 
-        #왼쪽 바: 아이콘, 세팅 버튼 등: TODO: 오른쪽으로 옮겨
         self.custom_btn_top = LeftMenuButton(
             self,
             "custom_btn_top",
@@ -159,8 +161,6 @@ class MainWindow(QMainWindow):
 
         add_menus(self, add_user)
 
-        self.maximize_restore()
-        self.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint)
 
         # SHOW MAIN WINDOW
         # ///////////////////////////////////////////////////////////////
@@ -195,7 +195,7 @@ class MainWindow(QMainWindow):
     def btn_clicked(self):
         # GET BT CLICKED
         btn = self.sender()
-
+        
         # UNSELECT CHATS
         ui_functions.UiFunctions.deselect_chat_message(self, btn.objectName())
 
@@ -242,55 +242,6 @@ class MainWindow(QMainWindow):
     def mousePressEvent(self, event):
         # SET DRAG POS WINDOW
         self.dragPos = event.globalPos()
-
-    # /////////////////////////////////////////////////////////////
-    # 내가 추가한 함수들
-
-    def keyPressEvent(self, event):
-        if event.key() == Qt.Key_Shift and Qt.Key_Alt:
-            self.maximize_restore()
-
-    def closeEvent(self, event):
-            event.ignore()
-
-
-    def maximize_restore(self):
-        global _is_maximized
-
-        # CHANGE UI AND RESIZE GRIP
-        def change_ui():
-            if not _is_maximized:
-                self.resize(self.width() + 1, self.height() + 1)
-                self.ui.margins_app.setContentsMargins(10, 10, 10, 10)
-                self.ui.maximize_restore_app_btn.setToolTip("Restore")
-                self.ui.maximize_restore_app_btn.setStyleSheet(
-                    "background-image: url(:/icons_svg/images/icons_svg/icon_maximize.svg);")
-                self.ui.bg_app.setStyleSheet("#bg_app { border-radius: 10px; border: 2px solid rgb(30, 32, 33); }")
-                self.left_grip.show()
-                self.right_grip.show()
-                self.top_grip.show()
-                self.bottom_grip.show()
-
-            else:
-                self.ui.margins_app.setContentsMargins(0, 0, 0, 0)
-                self.ui.maximize_restore_app_btn.setToolTip("Restore")
-                self.ui.maximize_restore_app_btn.setStyleSheet(
-                    "background-image: url(:/icons_svg/images/icons_svg/icon_restore.svg);")
-                self.ui.bg_app.setStyleSheet("#bg_app { border-radius: 0px; border: none; }")
-                self.left_grip.hide()
-                self.right_grip.hide()
-                self.top_grip.hide()
-                self.bottom_grip.hide()
-
-        # CHECK EVENT
-        if self.isMaximized():
-            _is_maximized = False
-            self.showNormal()
-            change_ui()
-        else:
-            _is_maximized = True
-            self.showMaximized()
-            change_ui()
 
 
 # SETTINGS WHEN TO START
