@@ -94,6 +94,7 @@ class MainWindow(QMainWindow):
         #left menu 버튼에 기능을 추가하자!
         #TODO: chat 페이지를 하나 만드는게 더 나을 듯
         self.custom_btn_top.clicked.connect(self.sec_button_clicked)
+        #headcheck
 
 
 
