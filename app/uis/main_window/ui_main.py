@@ -40,6 +40,15 @@ from . resources_rc import *
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
+# -*- coding: utf-8 -*-
+
+################################################################################
+## Form generated from reading UI file 'mainWshzAR.ui'
+##
+## Created by: Qt User Interface Compiler version 6.2.2
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -322,6 +331,7 @@ class Ui_MainWindow(object):
         self.password.setMinimumSize(QSize(200, 0))
         self.password.setMaximumSize(QSize(400, 16777215))
         self.password.setLayoutDirection(Qt.LeftToRight)
+        self.password.setEchoMode(QLineEdit.Password)
         self.password.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_2.addWidget(self.password, 0, Qt.AlignHCenter)
@@ -389,145 +399,6 @@ class Ui_MainWindow(object):
 
 
         self.horizontal_Layout.addWidget(self.left_menu)
-
-        self.left_messages = QFrame(self.bg_appPage1)
-        self.left_messages.setObjectName(u"left_messages")
-        self.left_messages.setMinimumSize(QSize(243, 0))
-        self.left_messages.setMaximumSize(QSize(243, 16777215))
-        self.left_messages.setFrameShape(QFrame.NoFrame)
-        self.left_messages.setFrameShadow(QFrame.Raised)
-        self.left_messages.setLineWidth(0)
-        self.left_box_layout = QVBoxLayout(self.left_messages)
-        self.left_box_layout.setSpacing(0)
-        self.left_box_layout.setObjectName(u"left_box_layout")
-        self.left_box_layout.setContentsMargins(0, 0, 0, 0)
-        self.top_messages = QFrame(self.left_messages)
-        self.top_messages.setObjectName(u"top_messages")
-        self.top_messages.setMinimumSize(QSize(0, 105))
-        self.top_messages.setMaximumSize(QSize(16777215, 105))
-        self.top_messages.setFrameShape(QFrame.NoFrame)
-        self.top_messages.setFrameShadow(QFrame.Raised)
-        self.top_messages_layout = QVBoxLayout(self.top_messages)
-        self.top_messages_layout.setSpacing(0)
-        self.top_messages_layout.setObjectName(u"top_messages_layout")
-        self.top_messages_layout.setContentsMargins(0, 0, 0, 0)
-        self.top_user_frame = QFrame(self.top_messages)
-        self.top_user_frame.setObjectName(u"top_user_frame")
-        self.top_user_frame.setMinimumSize(QSize(0, 60))
-        self.top_user_frame.setMaximumSize(QSize(16777215, 60))
-        self.top_user_frame.setFrameShape(QFrame.NoFrame)
-        self.top_user_frame.setFrameShadow(QFrame.Raised)
-
-        self.top_messages_layout.addWidget(self.top_user_frame)
-
-        self.search_sms_frame = QFrame(self.top_messages)
-        self.search_sms_frame.setObjectName(u"search_sms_frame")
-        self.search_sms_frame.setMinimumSize(QSize(0, 40))
-        self.search_sms_frame.setMaximumSize(QSize(16777215, 40))
-        self.search_sms_frame.setFrameShape(QFrame.NoFrame)
-        self.search_sms_frame.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_6 = QVBoxLayout(self.search_sms_frame)
-        self.verticalLayout_6.setSpacing(0)
-        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
-        self.verticalLayout_6.setContentsMargins(10, 0, 10, 0)
-        self.search_line_edit = QLineEdit(self.search_sms_frame)
-        self.search_line_edit.setObjectName(u"search_line_edit")
-        self.search_line_edit.setMinimumSize(QSize(0, 30))
-        self.search_line_edit.setMaximumSize(QSize(16777215, 40))
-
-        self.verticalLayout_6.addWidget(self.search_line_edit, 0, Qt.AlignVCenter)
-
-
-        self.top_messages_layout.addWidget(self.search_sms_frame)
-
-
-        self.left_box_layout.addWidget(self.top_messages)
-
-        self.left_messages_scroll = QScrollArea(self.left_messages)
-        self.left_messages_scroll.setObjectName(u"left_messages_scroll")
-        self.left_messages_scroll.setFrameShape(QFrame.NoFrame)
-        self.left_messages_scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.left_messages_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.left_messages_scroll.setWidgetResizable(True)
-        self.messages_scroll = QWidget()
-        self.messages_scroll.setObjectName(u"messages_scroll")
-        self.messages_scroll.setGeometry(QRect(0, 0, 240, 524))
-        self.messages_layout_base = QVBoxLayout(self.messages_scroll)
-        self.messages_layout_base.setSpacing(0)
-        self.messages_layout_base.setObjectName(u"messages_layout_base")
-        self.messages_layout_base.setContentsMargins(0, 5, 0, 5)
-        self.messages_frame = QFrame(self.messages_scroll)
-        self.messages_frame.setObjectName(u"messages_frame")
-        self.messages_frame.setFrameShape(QFrame.NoFrame)
-        self.messages_frame.setFrameShadow(QFrame.Raised)
-        self.messages_layout = QVBoxLayout(self.messages_frame)
-        self.messages_layout.setSpacing(5)
-        self.messages_layout.setObjectName(u"messages_layout")
-        self.messages_layout.setContentsMargins(0, 0, 0, 0)
-
-        self.messages_layout_base.addWidget(self.messages_frame, 0, Qt.AlignTop)
-
-        self.left_messages_scroll.setWidget(self.messages_scroll)
-
-        self.left_box_layout.addWidget(self.left_messages_scroll)
-
-        self.bottom_messages = QFrame(self.left_messages)
-        self.bottom_messages.setObjectName(u"bottom_messages")
-        self.bottom_messages.setMinimumSize(QSize(0, 65))
-        self.bottom_messages.setMaximumSize(QSize(16777215, 65))
-        self.bottom_messages.setFrameShape(QFrame.NoFrame)
-        self.bottom_messages.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_5 = QVBoxLayout(self.bottom_messages)
-        self.verticalLayout_5.setSpacing(0)
-        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
-        self.verticalLayout_5.setContentsMargins(15, 0, 10, 0)
-        self.signal_frame = QFrame(self.bottom_messages)
-        self.signal_frame.setObjectName(u"signal_frame")
-        self.signal_frame.setMinimumSize(QSize(0, 35))
-        self.signal_frame.setMaximumSize(QSize(16777215, 35))
-        self.signal_frame.setFrameShape(QFrame.NoFrame)
-        self.signal_frame.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_2 = QHBoxLayout(self.signal_frame)
-        self.horizontalLayout_2.setSpacing(10)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.signal_icon = QFrame(self.signal_frame)
-        self.signal_icon.setObjectName(u"signal_icon")
-        self.signal_icon.setMaximumSize(QSize(30, 16777215))
-        self.signal_icon.setFrameShape(QFrame.NoFrame)
-        self.signal_icon.setFrameShadow(QFrame.Raised)
-
-        self.horizontalLayout_2.addWidget(self.signal_icon)
-
-        self.signal_text = QFrame(self.signal_frame)
-        self.signal_text.setObjectName(u"signal_text")
-        self.signal_text.setFrameShape(QFrame.NoFrame)
-        self.signal_text.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_7 = QVBoxLayout(self.signal_text)
-        self.verticalLayout_7.setSpacing(0)
-        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
-        self.verticalLayout_7.setContentsMargins(0, 2, 0, 2)
-        self.label_top = QLabel(self.signal_text)
-        self.label_top.setObjectName(u"label_top")
-
-        self.verticalLayout_7.addWidget(self.label_top)
-
-        self.label_bottom = QLabel(self.signal_text)
-        self.label_bottom.setObjectName(u"label_bottom")
-
-        self.verticalLayout_7.addWidget(self.label_bottom)
-
-
-        self.horizontalLayout_2.addWidget(self.signal_text)
-
-
-        self.verticalLayout_5.addWidget(self.signal_frame, 0, Qt.AlignVCenter)
-
-
-        self.left_box_layout.addWidget(self.bottom_messages)
-
-
-        self.horizontal_Layout.addWidget(self.left_messages)
 
         self.right_content = QFrame(self.bg_appPage1)
         self.right_content.setObjectName(u"right_content")
@@ -677,9 +548,6 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.password.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Who are you?", None))
-        self.search_line_edit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Search messages", None))
-        self.label_top.setText(QCoreApplication.translate("MainWindow", u"Signal 80%", None))
-        self.label_bottom.setText(QCoreApplication.translate("MainWindow", u"PyBlackBOX server signal", None))
         self.title_bar.setText("")
 #if QT_CONFIG(tooltip)
         self.minimize_app_btn.setToolTip(QCoreApplication.translate("MainWindow", u"Minimize", None))

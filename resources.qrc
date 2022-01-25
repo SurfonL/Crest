@@ -5,6 +5,7 @@
     <file>images/images_svg/text_logo.svg</file>
   </qresource>
   <qresource prefix="icons_svg">
+    <file>images/icons_svg/drum_sticks.svg</file>
     <file>images/icons_svg/icon_busy.svg</file>
     <file>images/icons_svg/icon_idle.svg</file>
     <file>images/icons_svg/icon_invisible.svg</file>
@@ -24,6 +25,7 @@
   </qresource>
   <qresource prefix="users">
     <file>images/users/cat.png</file>
+    <file>images/users/Fletcher.jpg</file>
     <file>images/users/cat_150px.png</file>
     <file>images/users/me.png</file>
     <file>images/users/me_150px.png</file>

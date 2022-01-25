@@ -32,20 +32,19 @@ from app.uis.chat.message import Message # MainWindow
 # MAIN WINDOW
 # ///////////////////////////////////////////////////////////////
 class Chat(QWidget):
-    def __init__(
-        self,
-        user_image,
-        user_name,
-        user_description,
-        user_id,
-        my_name,
-    ):
+    def __init__(self):
         QWidget.__init__(self)
+
+        user_image = "images/users/Fletcher.jpg"
+        user_name = "Terence Fletcher"
+        user_description = " 'not quite my tempo' "
+        my_name = "my_name"
+
 
         self.page = Ui_chat_page()
         self.page.setupUi(self)
 
-        # UPDATE INFO
+        # # UPDATE INFO
         self.page.user_image.setStyleSheet("#user_image { background-image: url(\"" + os.path.normpath(user_image).replace("\\", "/") + "\") }")
         self.page.user_name.setText(user_name)
         self.page.user_description.setText(user_description)

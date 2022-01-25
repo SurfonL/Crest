@@ -7,10 +7,26 @@
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
+# -*- coding: utf-8 -*-
 
-from PySide6.QtCore import *
-from PySide6.QtGui import *
-from PySide6.QtWidgets import *
+################################################################################
+## Form generated from reading UI file 'page_messagesxPzeAt.ui'
+##
+## Created by: Qt User Interface Compiler version 6.2.2
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
+
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
+    QLineEdit, QPushButton, QScrollArea, QSizePolicy,
+    QSpacerItem, QVBoxLayout, QWidget)
 
 class Ui_chat_page(object):
     def setupUi(self, chat_page):
@@ -142,6 +158,10 @@ class Ui_chat_page(object):
 
         self.verticalLayout_2.addWidget(self.user_name)
 
+        self.verticalSpacer_2 = QSpacerItem(20, 5, QSizePolicy.Minimum, QSizePolicy.Fixed)
+
+        self.verticalLayout_2.addItem(self.verticalSpacer_2)
+
         self.user_description = QLabel(self.user_information_frame)
         self.user_description.setObjectName(u"user_description")
         self.user_description.setStyleSheet(u"background: transparent;")
@@ -154,19 +174,6 @@ class Ui_chat_page(object):
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
-
-        self.last_time_connected = QLabel(self.top)
-        self.last_time_connected.setObjectName(u"last_time_connected")
-
-        self.horizontalLayout.addWidget(self.last_time_connected)
-
-        self.btn_attachment_top = QPushButton(self.top)
-        self.btn_attachment_top.setObjectName(u"btn_attachment_top")
-        self.btn_attachment_top.setMinimumSize(QSize(40, 40))
-        self.btn_attachment_top.setMaximumSize(QSize(40, 40))
-        self.btn_attachment_top.setCursor(QCursor(Qt.PointingHandCursor))
-
-        self.horizontalLayout.addWidget(self.btn_attachment_top)
 
         self.btn_more_top = QPushButton(self.top)
         self.btn_more_top.setObjectName(u"btn_more_top")
@@ -279,8 +286,6 @@ class Ui_chat_page(object):
         self.user_image.setText("")
         self.user_name.setText(QCoreApplication.translate("chat_page", u"User name", None))
         self.user_description.setText(QCoreApplication.translate("chat_page", u"User description", None))
-        self.last_time_connected.setText(QCoreApplication.translate("chat_page", u"connected last time 24h ago", None))
-        self.btn_attachment_top.setText("")
         self.btn_more_top.setText("")
         self.btn_emoticon.setText("")
         self.line_edit_message.setPlaceholderText(QCoreApplication.translate("chat_page", u"Message #user", None))

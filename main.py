@@ -70,7 +70,7 @@ class MainWindow(QMainWindow):
         self.custom_btn_top = LeftMenuButton(
             self,
             "custom_btn_top",
-            "images/icons_svg/icon_add_user.svg",
+            "images/icons_svg/drum_sticks.svg",
             "Add new friend"
         )
         self.custom_btn_bottom_1 = LeftMenuButton(
@@ -92,12 +92,9 @@ class MainWindow(QMainWindow):
 
 
         #left menu 버튼에 기능을 추가하자!
-        #TODO: chat 페이지를 하나 만드는게 더 나을 듯
         self.custom_btn_top.clicked.connect(self.sec_button_clicked)
-        #headcheck
-
-
-
+        self.chat = Chat()
+        self.ui.chat_layout.addWidget(self.chat)
 
 
 
@@ -108,13 +105,7 @@ class MainWindow(QMainWindow):
         self.custom_btn_bottom_1.clicked.connect(lambda: print(f"{self.custom_btn_bottom_1.objectName()}: clicked"))
         self.custom_btn_bottom_1.released.connect(lambda: print(f"{self.custom_btn_bottom_1.objectName()}: released"))
 
-        
-        # TOP USER BOX
-        # Add widget to App
-        # ///////////////////////////////////////////////////////////////
-        self.top_user = TopUserInfo(self.ui.left_messages, 8, 64, "wanderson", "Writing python codes")
-        self.top_user.setParent(self.ui.top_user_frame)
-        self.top_user.status.connect(self.status_change)
+
 
         # SET UI DEFINITIONS
         # Run set_ui_definitions() in the ui_functions.py
@@ -124,53 +115,6 @@ class MainWindow(QMainWindow):
         # ADD MESSAGE BTNS / FRIEND MENUS
         # Add btns to page
         # ///////////////////////////////////////////////////////////////
-        add_user = [
-            {
-                "user_image" : "images/users/cat.png",
-                "user_name" : "Tom",
-                "user_description" : "Did you see a mouse?",
-                "user_status" : "online",
-                "unread_messages" : 2,
-                "is_active" : False
-            },
-            {
-                "user_image" : "images/users/mouse.png",
-                "user_name" : "Jerry",
-                "user_description" : "I think I saw a cat...",
-                "user_status" : "busy",
-                "unread_messages" : 1,
-                "is_active" : False
-            },
-            {
-                "user_image" : "images/users/me.png",
-                "user_name" : "Me From The Future",
-                "user_description" : "Lottery result...",
-                "user_status" : "invisible",
-                "unread_messages" : 0,
-                "is_active" : False
-            }
-        ]
-        self.menu = FriendMessageButton
-        def add_menus(self, parameters):
-            id = 0
-            for parameter in parameters:
-                
-                user_image = parameter['user_image']
-                user_name = parameter['user_name']
-                user_description = parameter['user_description']
-                user_status = parameter['user_status']
-                unread_messages = parameter['unread_messages']
-                is_active = parameter['is_active']
-                
-                self.menu = FriendMessageButton(
-                    id, user_image, user_name, user_description, user_status, unread_messages, is_active
-                )
-                self.menu.clicked.connect(self.btn_clicked)
-                self.menu.released.connect(self.btn_released)
-                self.ui.messages_layout.addWidget(self.menu)
-                id += 1
-
-        add_menus(self, add_user)
 
         self.maximize_minimize()
         self.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint)
@@ -190,51 +134,6 @@ class MainWindow(QMainWindow):
             else:
                 # SET STYLESHEET
                 self.ui.password.setStyleSheet("#password:focus { border: 3px solid rgb(255, 0, 0); }")
-
-
-    # SET USERNAME TO MAIN WINDOW
-    # ///////////////////////////////////////////////////////////////
-    def set_user_and_description(self, username):
-        self.top_user.user_name = username
-        print(f"User: {username} are logged!")
-
-    # PRINT STATUS
-    # ///////////////////////////////////////////////////////////////
-    def status_change(self, status):
-        print(f"send signal: {status}")
-        
-    # GET BTN CLICKED
-    # ///////////////////////////////////////////////////////////////
-    def btn_clicked(self):
-        # GET BT CLICKED
-        btn = self.sender()
-
-        # UNSELECT CHATS
-        ui_functions.UiFunctions.deselect_chat_message(self, btn.objectName())
-
-        # SELECT CLICKED
-        if btn.objectName():
-            btn.reset_unread_message()
-            ui_functions.UiFunctions.select_chat_message(self, btn.objectName())
-
-        # LOAD CHAT PAGE
-        if btn.objectName():
-            # REMOVE CHAT
-            for chat in reversed(range(self.ui.chat_layout.count())):
-                self.ui.chat_layout.itemAt(chat).widget().deleteLater()
-            self.chat = None
-
-            # SET CHAT WIDGET
-            self.chat = Chat(btn.user_image, btn.user_name, btn.user_description, btn.objectName(), self.top_user.user_name)
-
-            # ADD WIDGET TO LAYOUT
-            self.ui.chat_layout.addWidget(self.chat)
-
-            # JUMP TO CHAT PAGE
-            self.ui.app_pages.setCurrentWidget(self.ui.chat)
-
-        # DEBUG
-        print(f"Button {btn.objectName()}, clicked!")
 
     # GET BTN RELEASED
     # ///////////////////////////////////////////////////////////////
@@ -259,40 +158,8 @@ class MainWindow(QMainWindow):
     # /////////////////////////////////////////////////////////////
     # 내가 추가한 함수들
 
-
     def sec_button_clicked(self):
-        # GET BT CLICKED
-        btn = self.sender()
-
-        # UNSELECT CHATS
-        ui_functions.UiFunctions.deselect_chat_message(self, btn.objectName())
-
-        # SELECT CLICKED
-        if btn.objectName():
-            btn.reset_unread_message()
-            ui_functions.UiFunctions.select_chat_message(self, btn.objectName())
-
-        # LOAD CHAT PAGE
-        if btn.objectName():
-            # REMOVE CHAT
-            for chat in reversed(range(self.ui.chat_layout.count())):
-                self.ui.chat_layout.itemAt(chat).widget().deleteLater()
-            self.chat = None
-
-            # SET CHAT WIDGET
-            self.chat = Chat(btn.user_image, btn.user_name, btn.user_description, btn.objectName(),
-                             self.top_user.user_name)
-
-            # ADD WIDGET TO LAYOUT
-            self.ui.chat_layout.addWidget(self.chat)
-
-            # JUMP TO CHAT PAGE
-            self.ui.app_pages.setCurrentWidget(self.ui.chat)
-
-        # DEBUG
-        print(f"Button {btn.objectName()}, clicked!")
-
-
+        self.ui.app_pages.setCurrentWidget(self.ui.chat)
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Shift and Qt.Key_Alt:
