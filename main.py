@@ -8,10 +8,7 @@
 # respective credits only in the Python scripts, any information in the visual
 # interface (GUI) can be modified without any implication.
 #
-# There are limitations on Qt licenses if you want to use your products
-# commercially, I recommend reading them on the official website:
-# https://doc.qt.io/qtforpython/licenses.html
-#
+
 # ///////////////////////////////////////////////////////////////
 
 # DEFAULT PACKAGES
@@ -32,17 +29,6 @@ from app.uis.chat.page_messages import Chat # Chat Widget
 import app.modules.ui_functions.functions as ui_functions
 from app.modules.app_settings.settings import *
 
-# GLOBALS
-# ///////////////////////////////////////////////////////////////
-counter = 0
-
-# LOGIN
-# ///////////////////////////////////////////////////////////////
-
-    # CHECK LOGIN
-    # ///////////////////////////////////////////////////////////////
-
-
 # MAIN WINDOW
 # ///////////////////////////////////////////////////////////////
 class MainWindow(QMainWindow):
@@ -53,7 +39,6 @@ class MainWindow(QMainWindow):
         # ///////////////////////////////////////////////////////////////
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-
 
         # SET DEFAULT PAGE
         # ///////////////////////////////////////////////////////////////
@@ -67,16 +52,16 @@ class MainWindow(QMainWindow):
         self.ui.password.keyReleaseEvent = self.check_login
 
         #왼쪽 바: 아이콘, 세팅 버튼 등: TODO: 오른쪽으로 옮겨
-        self.custom_btn_top = LeftMenuButton(
+        self.chat_button = LeftMenuButton(
             self,
             "custom_btn_top",
             "images/icons_svg/drum_sticks.svg",
             "Add new friend"
         )
-        self.custom_btn_bottom_1 = LeftMenuButton(
+        self.pomodoro_button = LeftMenuButton(
             self,
             "custom_btn_bottom_1",
-            "images/icons_svg/icon_more_options.svg",
+            "images/icons_svg/pomodoro.png",
             "More options, test with many words"
         )
         self.custom_btn_bottom_2 = LeftMenuButton(
@@ -85,25 +70,21 @@ class MainWindow(QMainWindow):
             "images/icons_svg/icon_settings.svg",
             "Open settings"
         )
-        self.ui.top_menus_layout.addWidget(self.custom_btn_top)
-        self.ui.bottom_menus_layout.addWidget(self.custom_btn_bottom_1)
+        self.ui.top_menus_layout.addWidget(self.chat_button)
+        self.ui.top_menus_layout.addWidget(self.pomodoro_button)
         self.ui.bottom_menus_layout.addWidget(self.custom_btn_bottom_2)
 
-
-
-        #left menu 버튼에 기능을 추가하자!
-        self.custom_btn_top.clicked.connect(self.sec_button_clicked)
+        #left menu chat page
+        self.chat_button.clicked.connect(self.sec_button_clicked)
         self.chat = Chat()
         self.ui.chat_layout.addWidget(self.chat)
 
 
-
-
         # DEBUG
-        self.custom_btn_top.clicked.connect(lambda: print(f"{self.settings['app_name']}: clicked"))
-        self.custom_btn_top.released.connect(lambda: print(f"{self.custom_btn_top.objectName()}: released"))
-        self.custom_btn_bottom_1.clicked.connect(lambda: print(f"{self.custom_btn_bottom_1.objectName()}: clicked"))
-        self.custom_btn_bottom_1.released.connect(lambda: print(f"{self.custom_btn_bottom_1.objectName()}: released"))
+        self.chat_button.clicked.connect(lambda: print(f"{self.settings['app_name']}: clicked"))
+        self.chat_button.released.connect(lambda: print(f"{self.chat_button.objectName()}: released"))
+        self.pomodoro_button.clicked.connect(lambda: print(f"{self.pomodoro_button.objectName()}: clicked"))
+        self.pomodoro_button.released.connect(lambda: print(f"{self.pomodoro_button.objectName()}: released"))
 
 
 
@@ -112,8 +93,8 @@ class MainWindow(QMainWindow):
         # ///////////////////////////////////////////////////////////////
         ui_functions.UiFunctions.set_ui_definitions(self)
 
-        # ADD MESSAGE BTNS / FRIEND MENUS
-        # Add btns to page
+
+        #Window settings
         # ///////////////////////////////////////////////////////////////
 
         self.maximize_minimize()

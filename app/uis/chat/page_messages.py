@@ -37,7 +37,7 @@ class Chat(QWidget):
 
         user_image = "images/users/Fletcher.jpg"
         user_name = "Terence Fletcher"
-        user_description = " 'not quite my tempo' "
+        user_description = ' "not quite my tempo" '
         my_name = "my_name"
 
 

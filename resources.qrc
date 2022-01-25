@@ -5,6 +5,7 @@
     <file>images/images_svg/text_logo.svg</file>
   </qresource>
   <qresource prefix="icons_svg">
+    <file>images/icons_svg/pomodoro.png</file>
     <file>images/icons_svg/drum_sticks.svg</file>
     <file>images/icons_svg/icon_busy.svg</file>
     <file>images/icons_svg/icon_idle.svg</file>
