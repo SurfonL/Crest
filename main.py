@@ -75,9 +75,18 @@ class MainWindow(QMainWindow):
         self.ui.bottom_menus_layout.addWidget(self.custom_btn_bottom_2)
 
         #left menu chat page
-        self.chat_button.clicked.connect(self.sec_button_clicked)
+        self.chat_button.clicked.connect(lambda: self.ui.app_pages.setCurrentWidget(self.ui.chat))
         self.chat = Chat()
         self.ui.chat_layout.addWidget(self.chat)
+
+        #left menu pomodoro page
+        self.pomodoro_button.clicked.connect(lambda: self.ui.app_pages.setCurrentWidget(self.ui.pomodoro))
+        self.timer = CircularProgress()
+        #TODO: place  circular widget at the center
+        #TODO: make the app stacked widget so if you move to pomodoro there are no other buttons
+        self.ui.clock_layout.addWidget(self.timer)
+
+
 
 
         # DEBUG
@@ -138,9 +147,6 @@ class MainWindow(QMainWindow):
 
     # /////////////////////////////////////////////////////////////
     # 내가 추가한 함수들
-
-    def sec_button_clicked(self):
-        self.ui.app_pages.setCurrentWidget(self.ui.chat)
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Shift and Qt.Key_Alt:

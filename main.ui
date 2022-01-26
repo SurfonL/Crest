@@ -789,7 +789,7 @@ QLabel {
                    <string notr="true">background-color: transparent;</string>
                   </property>
                   <property name="currentIndex">
-                   <number>1</number>
+                   <number>2</number>
                   </property>
                   <widget class="QWidget" name="home">
                    <property name="styleSheet">
@@ -817,6 +817,119 @@ QLabel {
                     <property name="bottomMargin">
                      <number>0</number>
                     </property>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="pomodoro">
+                   <layout class="QGridLayout" name="gridLayout">
+                    <item row="0" column="3">
+                     <spacer name="horizontalSpacer_3">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item row="0" column="2">
+                     <widget class="QFrame" name="clock">
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>613</height>
+                       </size>
+                      </property>
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QVBoxLayout" name="frame_layout">
+                       <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                        <widget class="QFrame" name="frame_2">
+                         <property name="minimumSize">
+                          <size>
+                           <width>400</width>
+                           <height>400</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>400</width>
+                           <height>400</height>
+                          </size>
+                         </property>
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QVBoxLayout" name="clock_layout"/>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QFrame" name="frame">
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <widget class="QPushButton" name="play_button">
+                          <property name="geometry">
+                           <rect>
+                            <x>190</x>
+                            <y>110</y>
+                            <width>75</width>
+                            <height>24</height>
+                           </rect>
+                          </property>
+                          <property name="text">
+                           <string>PushButton</string>
+                          </property>
+                         </widget>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                    <item row="0" column="0">
+                     <spacer name="horizontalSpacer_2">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeType">
+                       <enum>QSizePolicy::Expanding</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item row="1" column="2">
+                     <spacer name="verticalSpacer_3">
+                      <property name="orientation">
+                       <enum>Qt::Vertical</enum>
+                      </property>
+                      <property name="sizeType">
+                       <enum>QSizePolicy::MinimumExpanding</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>20</width>
+                        <height>100</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
                    </layout>
                   </widget>
                  </widget>

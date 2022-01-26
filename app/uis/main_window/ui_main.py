@@ -13,42 +13,6 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
 from . resources_rc import *
-# -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'mainkUaPev.ui'
-##
-## Created by: Qt User Interface Compiler version 6.2.2
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
-# -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'mainqrwKSb.ui'
-##
-## Created by: Qt User Interface Compiler version 6.2.2
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
-# -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'mainpxUzgZ.ui'
-##
-## Created by: Qt User Interface Compiler version 6.2.2
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
-# -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'mainWshzAR.ui'
-##
-## Created by: Qt User Interface Compiler version 6.2.2
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -519,6 +483,54 @@ class Ui_MainWindow(object):
         self.chat_layout.setObjectName(u"chat_layout")
         self.chat_layout.setContentsMargins(0, 0, 0, 0)
         self.app_pages.addWidget(self.chat)
+        self.pomodoro = QWidget()
+        self.pomodoro.setObjectName(u"pomodoro")
+        self.gridLayout = QGridLayout(self.pomodoro)
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout.addItem(self.horizontalSpacer_3, 0, 3, 1, 1)
+
+        self.clock = QFrame(self.pomodoro)
+        self.clock.setObjectName(u"clock")
+        self.clock.setMinimumSize(QSize(0, 613))
+        self.clock.setFrameShape(QFrame.StyledPanel)
+        self.clock.setFrameShadow(QFrame.Raised)
+        self.frame_layout = QVBoxLayout(self.clock)
+        self.frame_layout.setObjectName(u"frame_layout")
+        self.frame_2 = QFrame(self.clock)
+        self.frame_2.setObjectName(u"frame_2")
+        self.frame_2.setMinimumSize(QSize(400, 400))
+        self.frame_2.setMaximumSize(QSize(400, 400))
+        self.frame_2.setFrameShape(QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QFrame.Raised)
+        self.clock_layout = QVBoxLayout(self.frame_2)
+        self.clock_layout.setObjectName(u"clock_layout")
+
+        self.frame_layout.addWidget(self.frame_2, 0, Qt.AlignHCenter|Qt.AlignVCenter)
+
+        self.frame = QFrame(self.clock)
+        self.frame.setObjectName(u"frame")
+        self.frame.setFrameShape(QFrame.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Raised)
+        self.play_button = QPushButton(self.frame)
+        self.play_button.setObjectName(u"play_button")
+        self.play_button.setGeometry(QRect(190, 110, 75, 24))
+
+        self.frame_layout.addWidget(self.frame)
+
+
+        self.gridLayout.addWidget(self.clock, 0, 2, 1, 1)
+
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout.addItem(self.horizontalSpacer_2, 0, 0, 1, 1)
+
+        self.verticalSpacer_3 = QSpacerItem(20, 100, QSizePolicy.Minimum, QSizePolicy.MinimumExpanding)
+
+        self.gridLayout.addItem(self.verticalSpacer_3, 1, 2, 1, 1)
+
+        self.app_pages.addWidget(self.pomodoro)
 
         self.verticalLayout_4.addWidget(self.app_pages)
 
@@ -539,7 +551,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.app_pages.setCurrentIndex(1)
+        self.app_pages.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -561,5 +573,6 @@ class Ui_MainWindow(object):
         self.close_app_btn.setToolTip(QCoreApplication.translate("MainWindow", u"Close", None))
 #endif // QT_CONFIG(tooltip)
         self.close_app_btn.setText("")
+        self.play_button.setText(QCoreApplication.translate("MainWindow", u"PushButton", None))
     # retranslateUi
 
