@@ -21,6 +21,8 @@ from . custom_grips import CustomGrip
 # LEFT MENU BUTTON
 # Custom button with tooltip
 from . left_menu_button import LeftMenuButton
+from . left_menu_button import WhiteButton
+from . left_menu_button import PomoButton
 
 # TOP USER BOX
 # Top user information and status

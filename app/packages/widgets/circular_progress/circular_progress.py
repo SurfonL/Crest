@@ -19,21 +19,21 @@ class CircularProgress(QWidget):
         QWidget.__init__(self)
 
         # CUSTOM PROPERTIES
-        self.value = 0
-        self.width = 200
-        self.height = 200
-        self.progress_width = 10
+        self.value = 50
+        self.width = 500
+        self.height = 500
+        self.progress_width = 30
         self.progress_rounded_cap = True
         self.max_value = 100
-        self.progress_color = 0xff79c6
+        self.progress_color = 0xffffff
         # Text
         self.enable_text = True
         self.font_family = "Segoe UI"
-        self.font_size = 12
+        self.font_size = 30
         self.suffix = "%"
-        self.text_color = 0xff79c6
+        self.text_color = 0xffffff
         # BG
-        self.enable_bg = True
+        self.enable_bg = False
         self.bg_color = 0x44475a
 
         # SET DEFAULT SIZE WITHOUT LAYOUT
@@ -90,7 +90,7 @@ class CircularProgress(QWidget):
         # CREATE ARC / CIRCULAR PROGRESS
         pen.setColor(QColor(self.progress_color))
         paint.setPen(pen)      
-        paint.drawArc(margin, margin, width, height, -90 * 16, -value * 16)       
+        paint.drawArc(margin, margin, width, height, -90 * 16, value * 16,)
 
         # CREATE TEXT
         if self.enable_text:
@@ -100,6 +100,83 @@ class CircularProgress(QWidget):
 
         # END
         paint.end()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def eventFilter(self, obj, event):
+        if obj is self.displayArea.viewport() and event.type() == QEvent.MouseButtonPress:
+            if event.button() == Qt.LeftButton:
+                self.minutesSpinBox.setFocus()
+                self.minutesSpinBox.selectAll()
+        return super(TimerWidget, self).eventFilter(obj, event)
+
+    def _countdown_and_show(self):
+        if self._left_seconds > 0:
+            self._left_seconds -= 1
+            self.showTime()
+        else:
+            self.timer.stop()
+            self.showTime()
+            self.startButton.setText(ButtonText.start)
+            self._status = TimerStatus.init
+            self._left_seconds = self.minutesSpinBox.value() * 60
+
+    def _start_event(self):
+        if (self._status == TimerStatus.init or self._status == TimerStatus.paused) and self._left_seconds > 0:
+            self._left_seconds -= 1
+            self._status = TimerStatus.counting
+            self.showTime()
+            self.timer.start(1000)
+            self.startButton.setText(ButtonText.pause)
+        elif self._status == TimerStatus.counting:
+            self.timer.stop()
+            self._status = TimerStatus.paused
+            self.startButton.setText(ButtonText.start)
+
+    def _reset_event(self):
+        self._status = TimerStatus.init
+        self._left_seconds = self.minutesSpinBox.value() * 60
+        self.startButton.setText(ButtonText.start)
+        self.timer.stop()
+        self.showTime()
+
+    def _edit_event(self):
+        if self._status == TimerStatus.init:
+            self._left_seconds = self.minutesSpinBox.value() * 60
+            self.showTime()
+
+    def showTime(self):
+        total_seconds = min(self._left_seconds, 359940)  # Max time: 99:59:00
+        hours = total_seconds // 3600
+        total_seconds = total_seconds - (hours * 3600)
+        minutes = total_seconds // 60
+        seconds = total_seconds - (minutes * 60)
+        self.displayArea.setText("{:02}:{:02}:{:02}".format(int(hours), int(minutes), int(seconds)))
+        self.displayArea.setAlignment(Qt.AlignHCenter)
+
+    def setWidgets(self):
+        hbox = QHBoxLayout()
+        hbox.addWidget(self.minutesLabel)
+        hbox.addWidget(self.minutesSpinBox)
+        hbox.addWidget(self.startButton)
+        hbox.addWidget(self.resetButton)
+        hbox.setAlignment(Qt.AlignLeft)
+        vbox = QVBoxLayout()
+        vbox.addLayout(hbox)
+        vbox.addWidget(self.displayArea)
+        self.setLayout(vbox)
 
 if __name__ == "__main__":
     progress = CircularProgress()

@@ -56,19 +56,19 @@ class MainWindow(QMainWindow):
             self,
             "custom_btn_top",
             "images/icons_svg/drum_sticks.svg",
-            "Add new friend"
+            "Add new friend",
         )
         self.pomodoro_button = LeftMenuButton(
             self,
             "custom_btn_bottom_1",
             "images/icons_svg/pomodoro.png",
-            "More options, test with many words"
+            "More options, test with many words",
         )
         self.custom_btn_bottom_2 = LeftMenuButton(
             self,
             "custom_btn_bottom_2",
             "images/icons_svg/icon_settings.svg",
-            "Open settings"
+            "Open settings",
         )
         self.ui.top_menus_layout.addWidget(self.chat_button)
         self.ui.top_menus_layout.addWidget(self.pomodoro_button)
@@ -79,12 +79,47 @@ class MainWindow(QMainWindow):
         self.chat = Chat()
         self.ui.chat_layout.addWidget(self.chat)
 
+
         #left menu pomodoro page
-        self.pomodoro_button.clicked.connect(lambda: self.ui.app_pages.setCurrentWidget(self.ui.pomodoro))
+        self.pomodoro_button.clicked.connect(lambda: self.ui.bg_app.setCurrentWidget(self.ui.pomodoro_appPage2))
         self.timer = CircularProgress()
         #TODO: place  circular widget at the center
-        #TODO: make the app stacked widget so if you move to pomodoro there are no other buttons
-        self.ui.clock_layout.addWidget(self.timer)
+        self.ui.clock_layout0.addWidget(self.timer)
+        self.pomo_home_btn = WhiteButton(
+            self,
+            "pomo_home",
+            "images/icons_svg/home.png",
+            40,
+            40
+        )
+        self.ui.pomo_home.addWidget(self.pomo_home_btn)
+        self.pomo_home_btn.clicked.connect(lambda: self.ui.bg_app.setCurrentWidget(self.ui.bg_appPage1))
+        self.pomo_play_btn = PomoButton(
+            self,
+            "play",
+            "images/icons_svg/play.png",
+            60,
+            60,
+            "images/icons_svg/play.png"
+        )
+        self.pomo_pause_btn = PomoButton(
+            self,
+            "pause",
+            "images/icons_svg/pause.png",
+            60,
+            60,
+            "images/icons_svg/stop.png"
+        )
+        self.ui.play_button_layout.addWidget(self.pomo_play_btn, alignment=Qt.AlignCenter)
+        self.ui.pause_button_layout.addWidget(self.pomo_pause_btn, alignment=Qt.AlignCenter)
+
+
+
+
+
+
+
+
 
 
 

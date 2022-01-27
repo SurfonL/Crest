@@ -1,10 +1,16 @@
 <RCC>
   <qresource prefix="images_svg">
+    <file>images/icons_svg/multiple.png</file>
+    <file>images/icons_svg/plus.png</file>
+    <file>images/icons_svg/pause.png</file>
+    <file>images/icons_svg/play.png</file>
+    <file>images/icons_svg/stop.png</file>
     <file>images/images_svg/logo_home.svg</file>
     <file>images/images_svg/logo_symbol_top.svg</file>
     <file>images/images_svg/text_logo.svg</file>
   </qresource>
   <qresource prefix="icons_svg">
+    <file>images/icons_svg/home.png</file>
     <file>images/icons_svg/pomodoro.png</file>
     <file>images/icons_svg/drum_sticks.svg</file>
     <file>images/icons_svg/icon_busy.svg</file>

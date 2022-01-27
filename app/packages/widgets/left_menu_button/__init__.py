@@ -17,3 +17,5 @@
 # LEFT MENU BUTTON
 # Custom button with tooltip
 from . left_menu_button import LeftMenuButton
+from . whie_button import WhiteButton
+from . pomo_button import PomoButton
