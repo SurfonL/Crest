@@ -13,13 +13,14 @@
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
+import enum
 
 class CircularProgress(QWidget):
-    def __init__(self):
+    def __init__(self, focus_time):
         QWidget.__init__(self)
 
         # CUSTOM PROPERTIES
-        self.value = 50
+
         self.width = 500
         self.height = 500
         self.progress_width = 30
@@ -38,6 +39,20 @@ class CircularProgress(QWidget):
 
         # SET DEFAULT SIZE WITHOUT LAYOUT
         self.resize(self.width, self.height)
+
+
+
+        #Timer things...
+        self.focus_time = focus_time
+        minutes = self.focus_time // 60
+        seconds = self.focus_time - (minutes * 60)
+        self.time_string = "{:02}:{:02}".format(int(minutes), int(seconds))
+        self._status = TimerStatus.init
+        self._left_seconds = self.focus_time
+        self.timer = QTimer()
+        self.timer.timeout.connect(self._countdown_and_show)
+        self.showTime()
+
 
     # ADD DROPSHADOW
     def add_shadow(self, enable):
@@ -61,7 +76,12 @@ class CircularProgress(QWidget):
         width = self.width - self.progress_width
         height = self.height - self.progress_width
         margin = self.progress_width / 2
-        value =  self.value * 360 / self.max_value
+        percentage = self._left_seconds / self.focus_time * 100
+
+        print(self._left_seconds,self.focus_time,percentage)
+
+
+        value =  percentage* 360 / self.max_value
 
         # PAINTER
         paint = QPainter()
@@ -96,31 +116,36 @@ class CircularProgress(QWidget):
         if self.enable_text:
             pen.setColor(QColor(self.text_color))
             paint.setPen(pen)
-            paint.drawText(rect, Qt.AlignCenter, f"{self.value}{self.suffix}")          
+            paint.drawText(rect, Qt.AlignCenter, self.time_string)
 
         # END
         paint.end()
 
+    class TimerStatus(enum.Enum):
+        init, counting, paused = 1, 2, 3
+
+    class ButtonText:
+        start, pause, reset = "Start", "Pause", "Reset"
 
 
 
 
+    def _start_event(self, value):
+        if (self._status == TimerStatus.init or self._status == TimerStatus.paused) and self._left_seconds > 0:
+            self._left_seconds -= 1
+            self._status = TimerStatus.counting
+            self.showTime()
+            self.timer.start(1000)
+        elif self._status == TimerStatus.counting:
+            self.timer.stop()
+            self._status = TimerStatus.paused
+        self.focus_time = value
 
-
-
-
-
-
-
-
-
-
-    def eventFilter(self, obj, event):
-        if obj is self.displayArea.viewport() and event.type() == QEvent.MouseButtonPress:
-            if event.button() == Qt.LeftButton:
-                self.minutesSpinBox.setFocus()
-                self.minutesSpinBox.selectAll()
-        return super(TimerWidget, self).eventFilter(obj, event)
+    def _reset_event(self):
+        self._status = TimerStatus.init
+        self._left_seconds = self.focus_time * 60
+        self.timer.stop()
+        self.showTime()
 
     def _countdown_and_show(self):
         if self._left_seconds > 0:
@@ -129,7 +154,36 @@ class CircularProgress(QWidget):
         else:
             self.timer.stop()
             self.showTime()
-            self.startButton.setText(ButtonText.start)
+            self._status = TimerStatus.init
+            self._left_seconds = self.minutesSpinBox.value() * 60
+
+    def showTime(self):
+        total_seconds = min(self._left_seconds, 359940)  # Max time: 99:59:00
+        hours = total_seconds // 3600
+        total_seconds = total_seconds - (hours * 3600)
+        minutes = total_seconds // 60
+        seconds = total_seconds - (minutes * 60)
+        self.time_string = "{:02}:{:02}".format(int(minutes), int(seconds))
+        self.set_value(self.time_string)
+
+    def _edit_event(self, value):
+        if self._status == TimerStatus.init:
+            self._left_seconds = value * 60
+            self.showTime()
+
+
+
+class TimerStatus(enum.Enum):
+    init, counting, paused = 1, 2, 3
+
+class Timerwidget:
+    def _countdown_and_show(self):
+        if self._left_seconds > 0:
+            self._left_seconds -= 1
+            self.showTime()
+        else:
+            self.timer.stop()
+            self.showTime()
             self._status = TimerStatus.init
             self._left_seconds = self.minutesSpinBox.value() * 60
 
@@ -139,16 +193,13 @@ class CircularProgress(QWidget):
             self._status = TimerStatus.counting
             self.showTime()
             self.timer.start(1000)
-            self.startButton.setText(ButtonText.pause)
         elif self._status == TimerStatus.counting:
             self.timer.stop()
             self._status = TimerStatus.paused
-            self.startButton.setText(ButtonText.start)
 
     def _reset_event(self):
         self._status = TimerStatus.init
         self._left_seconds = self.minutesSpinBox.value() * 60
-        self.startButton.setText(ButtonText.start)
         self.timer.stop()
         self.showTime()
 

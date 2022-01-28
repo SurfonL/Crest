@@ -565,15 +565,6 @@ class Ui_MainWindow(object):
 
         self.buttons_layout.addWidget(self.frame_6)
 
-        self.frame_5 = QFrame(self.frame_4)
-        self.frame_5.setObjectName(u"frame_5")
-        self.frame_5.setFrameShape(QFrame.StyledPanel)
-        self.frame_5.setFrameShadow(QFrame.Raised)
-        self.stop_button_layout = QVBoxLayout(self.frame_5)
-        self.stop_button_layout.setObjectName(u"stop_button_layout")
-
-        self.buttons_layout.addWidget(self.frame_5)
-
 
         self.gridLayout.addWidget(self.frame_4, 3, 1, 1, 1)
 
@@ -614,17 +605,17 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setSpacing(0)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.lineEdit = QLineEdit(self.frame_8)
-        self.lineEdit.setObjectName(u"lineEdit")
-        self.lineEdit.setCursor(QCursor(Qt.ArrowCursor))
-        self.lineEdit.setMouseTracking(False)
-        self.lineEdit.setStyleSheet(u"background: rgba(255,255,255,0)")
-        self.lineEdit.setMaxLength(32767)
-        self.lineEdit.setFrame(False)
-        self.lineEdit.setAlignment(Qt.AlignCenter)
-        self.lineEdit.setClearButtonEnabled(False)
+        self.focus_edit = QLineEdit(self.frame_8)
+        self.focus_edit.setObjectName(u"focus_edit")
+        self.focus_edit.setCursor(QCursor(Qt.ArrowCursor))
+        self.focus_edit.setMouseTracking(False)
+        self.focus_edit.setStyleSheet(u"background: rgba(255,255,255,0)")
+        self.focus_edit.setMaxLength(32767)
+        self.focus_edit.setFrame(False)
+        self.focus_edit.setAlignment(Qt.AlignCenter)
+        self.focus_edit.setClearButtonEnabled(False)
 
-        self.horizontalLayout_2.addWidget(self.lineEdit)
+        self.horizontalLayout_2.addWidget(self.focus_edit)
 
 
         self.gridLayout_2.addWidget(self.frame_8, 1, 1, 1, 1)
@@ -639,23 +630,23 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.setSpacing(0)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.lineEdit_2 = QLineEdit(self.frame_9)
-        self.lineEdit_2.setObjectName(u"lineEdit_2")
+        self.rest_edit = QLineEdit(self.frame_9)
+        self.rest_edit.setObjectName(u"rest_edit")
         font3 = QFont()
         font3.setPointSize(9)
         font3.setBold(False)
         font3.setItalic(False)
-        self.lineEdit_2.setFont(font3)
-        self.lineEdit_2.setCursor(QCursor(Qt.ArrowCursor))
-        self.lineEdit_2.setMouseTracking(False)
-        self.lineEdit_2.setStyleSheet(u"background: rgba(255,255,255,0);")
-        self.lineEdit_2.setMaxLength(2)
-        self.lineEdit_2.setFrame(False)
-        self.lineEdit_2.setAlignment(Qt.AlignCenter)
-        self.lineEdit_2.setCursorMoveStyle(Qt.LogicalMoveStyle)
-        self.lineEdit_2.setClearButtonEnabled(False)
+        self.rest_edit.setFont(font3)
+        self.rest_edit.setCursor(QCursor(Qt.ArrowCursor))
+        self.rest_edit.setMouseTracking(False)
+        self.rest_edit.setStyleSheet(u"background: rgba(255,255,255,0);")
+        self.rest_edit.setMaxLength(2)
+        self.rest_edit.setFrame(False)
+        self.rest_edit.setAlignment(Qt.AlignCenter)
+        self.rest_edit.setCursorMoveStyle(Qt.LogicalMoveStyle)
+        self.rest_edit.setClearButtonEnabled(False)
 
-        self.horizontalLayout_3.addWidget(self.lineEdit_2)
+        self.horizontalLayout_3.addWidget(self.rest_edit)
 
 
         self.gridLayout_2.addWidget(self.frame_9, 2, 1, 1, 1)
@@ -693,9 +684,9 @@ class Ui_MainWindow(object):
         self.close_app_btn.setToolTip(QCoreApplication.translate("MainWindow", u"Close", None))
 #endif // QT_CONFIG(tooltip)
         self.close_app_btn.setText("")
-        self.lineEdit.setInputMask("")
-        self.lineEdit.setText(QCoreApplication.translate("MainWindow", u"25", None))
-        self.lineEdit_2.setInputMask("")
-        self.lineEdit_2.setText(QCoreApplication.translate("MainWindow", u"5", None))
+        self.focus_edit.setInputMask("")
+        self.focus_edit.setText(QCoreApplication.translate("MainWindow", u"25", None))
+        self.rest_edit.setInputMask("")
+        self.rest_edit.setText(QCoreApplication.translate("MainWindow", u"5", None))
     # retranslateUi
 

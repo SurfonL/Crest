@@ -1008,17 +1008,6 @@ stop:0 rgba(152, 222, 91,1), stop: 1 rgba(8, 225, 174,1))
              <layout class="QVBoxLayout" name="pause_button_layout"/>
             </widget>
            </item>
-           <item>
-            <widget class="QFrame" name="frame_5">
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
-             <layout class="QVBoxLayout" name="stop_button_layout"/>
-            </widget>
-           </item>
           </layout>
          </widget>
         </item>
@@ -1130,7 +1119,7 @@ stop:0 rgba(152, 222, 91,1), stop: 1 rgba(8, 225, 174,1))
                <number>0</number>
               </property>
               <item>
-               <widget class="QLineEdit" name="lineEdit">
+               <widget class="QLineEdit" name="focus_edit">
                 <property name="cursor">
                  <cursorShape>ArrowCursor</cursorShape>
                 </property>
@@ -1200,7 +1189,7 @@ stop:0 rgba(152, 222, 91,1), stop: 1 rgba(8, 225, 174,1))
                <number>0</number>
               </property>
               <item>
-               <widget class="QLineEdit" name="lineEdit_2">
+               <widget class="QLineEdit" name="rest_edit">
                 <property name="font">
                  <font>
                   <pointsize>9</pointsize>

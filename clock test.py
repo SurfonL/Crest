@@ -25,14 +25,24 @@ class TimerWidget(QWidget):
         self.minutesSpinBox.setSingleStep(5)
         self.minutesSpinBox.setFocus()
         self.minutesSpinBox.selectAll()
+
+
         self.minutesSpinBox.valueChanged.connect(self._edit_event)
+
+
         self.startButton = QPushButton(ButtonText.start)
         self.startButton.setFixedSize(50, 23)
+
         self.startButton.clicked.connect(self._start_event)
+
+
         self.resetButton = QPushButton(ButtonText.reset)
         self.resetButton.setFixedSize(50, 23)
+
+
         self.resetButton.clicked.connect(self._reset_event)
         self.displayArea = QTextEdit()
+
         self.displayArea.setTextColor(QColorConstants.DarkBlue)
         self.displayArea.setStyleSheet("border: none")
         self.displayArea.setFontFamily("Arial")
@@ -47,12 +57,7 @@ class TimerWidget(QWidget):
         self.timer.timeout.connect(self._countdown_and_show)
         self.showTime()
 
-    def eventFilter(self, obj, event):
-        if obj is self.displayArea.viewport() and event.type() == QEvent.MouseButtonPress:
-            if event.button() == Qt.LeftButton:
-                self.minutesSpinBox.setFocus()
-                self.minutesSpinBox.selectAll()
-        return super(TimerWidget, self).eventFilter(obj, event)
+
 
     def _countdown_and_show(self):
         if self._left_seconds > 0:

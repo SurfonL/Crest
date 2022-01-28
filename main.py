@@ -1,3 +1,4 @@
+import numpy
 # ///////////////////////////////////////////////////////////////
 #
 # BY: WANDERSON M.PIMENTA
@@ -82,7 +83,7 @@ class MainWindow(QMainWindow):
 
         #left menu pomodoro page
         self.pomodoro_button.clicked.connect(lambda: self.ui.bg_app.setCurrentWidget(self.ui.pomodoro_appPage2))
-        self.timer = CircularProgress()
+        self.timer = CircularProgress(int(self.ui.focus_edit.text()) * 60)
         #TODO: place  circular widget at the center
         self.ui.clock_layout0.addWidget(self.timer)
         self.pomo_home_btn = WhiteButton(
@@ -113,8 +114,10 @@ class MainWindow(QMainWindow):
         self.ui.play_button_layout.addWidget(self.pomo_play_btn, alignment=Qt.AlignCenter)
         self.ui.pause_button_layout.addWidget(self.pomo_pause_btn, alignment=Qt.AlignCenter)
 
+        self.pomo_play_btn.clicked.connect(lambda: self.timer._start_event(int(self.ui.focus_edit.text())*60))
+        self.pomo_pause_btn.clicked.connect(self.timer._reset_event)
 
-
+        self.ui.focus_edit.keyReleaseEvent = self.set_focus_time
 
 
 
@@ -215,6 +218,13 @@ class MainWindow(QMainWindow):
             _is_maximized = True
             self.showMaximized()
             change_ui()
+
+    def set_focus_time(self,event):
+        if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
+            value = int(self.ui.focus_edit.text())
+            self.timer._edit_event(value)
+
+
 
 
 # SETTINGS WHEN TO START
