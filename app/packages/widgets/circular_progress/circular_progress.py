@@ -16,8 +16,10 @@ from PySide6.QtWidgets import *
 import enum
 
 class CircularProgress(QWidget):
-    def __init__(self, focus_time):
+    def __init__(self, page):
         QWidget.__init__(self)
+
+        self.page = page.ui
 
         # CUSTOM PROPERTIES
 
@@ -43,12 +45,12 @@ class CircularProgress(QWidget):
 
 
         #Timer things...
-        self.focus_time = focus_time
-        minutes = self.focus_time // 60
-        seconds = self.focus_time - (minutes * 60)
+        self.focus_seconds = int(self.page.focus_edit.text()) * 60
+        minutes = self.focus_seconds // 60
+        seconds = self.focus_seconds - (minutes * 60)
         self.time_string = "{:02}:{:02}".format(int(minutes), int(seconds))
         self._status = TimerStatus.init
-        self._left_seconds = self.focus_time
+        self._left_seconds = self.focus_seconds
         self.timer = QTimer()
         self.timer.timeout.connect(self._countdown_and_show)
         self.showTime()
@@ -76,9 +78,10 @@ class CircularProgress(QWidget):
         width = self.width - self.progress_width
         height = self.height - self.progress_width
         margin = self.progress_width / 2
-        percentage = self._left_seconds / self.focus_time * 100
+        percentage = self._left_seconds / self.focus_seconds * 100 - 100
 
-        print(self._left_seconds,self.focus_time,percentage)
+
+        print(self._left_seconds, self.focus_seconds, percentage)
 
 
         value =  percentage* 360 / self.max_value
@@ -110,7 +113,8 @@ class CircularProgress(QWidget):
         # CREATE ARC / CIRCULAR PROGRESS
         pen.setColor(QColor(self.progress_color))
         paint.setPen(pen)      
-        paint.drawArc(margin, margin, width, height, -90 * 16, value * 16,)
+        paint.drawArc(margin, margin, width, height, 90*16, value * 16,)
+        #
 
         # CREATE TEXT
         if self.enable_text:
@@ -127,23 +131,20 @@ class CircularProgress(QWidget):
     class ButtonText:
         start, pause, reset = "Start", "Pause", "Reset"
 
-
-
-
     def _start_event(self, value):
         if (self._status == TimerStatus.init or self._status == TimerStatus.paused) and self._left_seconds > 0:
             self._left_seconds -= 1
             self._status = TimerStatus.counting
             self.showTime()
             self.timer.start(1000)
-        elif self._status == TimerStatus.counting:
-            self.timer.stop()
-            self._status = TimerStatus.paused
-        self.focus_time = value
+        self.focus_seconds = value
 
     def _reset_event(self):
+        if self._status == TimerStatus.counting:
+            self.timer.stop()
+            self._status = TimerStatus.paused
         self._status = TimerStatus.init
-        self._left_seconds = self.focus_time * 60
+        self._left_seconds = self.focus_seconds
         self.timer.stop()
         self.showTime()
 
@@ -152,10 +153,12 @@ class CircularProgress(QWidget):
             self._left_seconds -= 1
             self.showTime()
         else:
-            self.timer.stop()
+            self.page.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
+                                                 "stop:0 rgba(254,88,88,1), stop: 1 rgba(238,150,23,1))\n"
+                                                 "")
             self.showTime()
             self._status = TimerStatus.init
-            self._left_seconds = self.minutesSpinBox.value() * 60
+            self._left_seconds = self.focus_seconds
 
     def showTime(self):
         total_seconds = min(self._left_seconds, 359940)  # Max time: 99:59:00
@@ -168,6 +171,7 @@ class CircularProgress(QWidget):
 
     def _edit_event(self, value):
         if self._status == TimerStatus.init:
+            self.focus_seconds = value * 60
             self._left_seconds = value * 60
             self.showTime()
 
@@ -182,7 +186,9 @@ class Timerwidget:
             self._left_seconds -= 1
             self.showTime()
         else:
-            self.timer.stop()
+            self.page.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
+                                                 "stop:0 rgba(254,88,88,1), stop: 1 rgba(238,150,23,1))\n"
+                                                 "")
             self.showTime()
             self._status = TimerStatus.init
             self._left_seconds = self.minutesSpinBox.value() * 60
@@ -194,7 +200,9 @@ class Timerwidget:
             self.showTime()
             self.timer.start(1000)
         elif self._status == TimerStatus.counting:
-            self.timer.stop()
+            self.page.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
+                                                 "stop:0 rgba(254,88,88,1), stop: 1 rgba(238,150,23,1))\n"
+                                                 "")
             self._status = TimerStatus.paused
 
     def _reset_event(self):
@@ -228,6 +236,12 @@ class Timerwidget:
         vbox.addLayout(hbox)
         vbox.addWidget(self.displayArea)
         self.setLayout(vbox)
+
+    def rest_start_event(self):
+        self.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
+                                             "stop:0 rgba(152, 222, 91,1), stop: 1 rgba(8, 225, 174,1))\n"
+                                             "")
+
 
 if __name__ == "__main__":
     progress = CircularProgress()

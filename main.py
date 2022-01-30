@@ -83,7 +83,8 @@ class MainWindow(QMainWindow):
 
         #left menu pomodoro page
         self.pomodoro_button.clicked.connect(lambda: self.ui.bg_app.setCurrentWidget(self.ui.pomodoro_appPage2))
-        self.timer = CircularProgress(int(self.ui.focus_edit.text()) * 60)
+        self.timer = CircularProgress(self)
+        # self.timer = CircularProgress(int(self.ui.focus_edit.text()) * 60)
         #TODO: place  circular widget at the center
         self.ui.clock_layout0.addWidget(self.timer)
         self.pomo_home_btn = WhiteButton(
@@ -118,6 +119,7 @@ class MainWindow(QMainWindow):
         self.pomo_pause_btn.clicked.connect(self.timer._reset_event)
 
         self.ui.focus_edit.keyReleaseEvent = self.set_focus_time
+
 
 
 
