@@ -2,10 +2,14 @@ from . whie_button import WhiteButton
 from app.packages.pyside_or_pyqt import *
 
 class PomoButton(WhiteButton):
-    def __init__(self, parent, name, icon, width, height, active_im):
+    def __init__(self, parent, name, icon, width, height):
         WhiteButton.__init__(self, parent, name, icon, width, height)
-        self.isactive = False
-        self.active_im = active_im
+
+
+        self.is_original = True
+        self.icon_original = icon
+        self.icon_stop = "images/icons_svg/stop.png"
+
 
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
@@ -13,13 +17,12 @@ class PomoButton(WhiteButton):
             self.clicked.emit()
             # SET FOCUS
             self.setFocus()
-            self.isactive = False if self.isactive else True
             self.repaint()
 
 
     def icon_paint(self, qp, image, rect):
         #if button active => active image
-        image = self.active_im if self.isactive else image
+        image = self.icon_original if self.is_original else self.icon_stop
         icon = QPixmap(image)
         painter = QPainter(icon)
         painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
@@ -30,4 +33,15 @@ class PomoButton(WhiteButton):
             icon
         )
         painter.end()
+
+    def stop_icon(self):
+        self.is_original = False
+
+    def original_icon(self):
+        self.is_original = True
+        self.repaint()
+
+
+
+
 

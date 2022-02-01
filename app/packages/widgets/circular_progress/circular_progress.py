@@ -19,7 +19,7 @@ class CircularProgress(QWidget):
     def __init__(self, page):
         QWidget.__init__(self)
 
-        self.page = page.ui
+        self.page = page
 
         # CUSTOM PROPERTIES
 
@@ -45,7 +45,8 @@ class CircularProgress(QWidget):
 
 
         #Timer things...
-        self.focus_seconds = int(self.page.focus_edit.text()) * 60
+        self.focus_seconds = int(self.page.ui.focus_edit.text()) * 60
+        self.rest_seconds = int(self.page.ui.rest_edit.text()) * 60
         minutes = self.focus_seconds // 60
         seconds = self.focus_seconds - (minutes * 60)
         self.time_string = "{:02}:{:02}".format(int(minutes), int(seconds))
@@ -54,6 +55,8 @@ class CircularProgress(QWidget):
         self.timer = QTimer()
         self.timer.timeout.connect(self._countdown_and_show)
         self.showTime()
+
+        self.focus_status = FocusStatus.focus
 
 
     # ADD DROPSHADOW
@@ -125,14 +128,8 @@ class CircularProgress(QWidget):
         # END
         paint.end()
 
-    class TimerStatus(enum.Enum):
-        init, counting, paused = 1, 2, 3
-
-    class ButtonText:
-        start, pause, reset = "Start", "Pause", "Reset"
-
     def _start_event(self, value):
-        if (self._status == TimerStatus.init or self._status == TimerStatus.paused) and self._left_seconds > 0:
+        if (self._status == TimerStatus.init or self._status == TimerStatus.paused):
             self._left_seconds -= 1
             self._status = TimerStatus.counting
             self.showTime()
@@ -143,30 +140,33 @@ class CircularProgress(QWidget):
         if self._status == TimerStatus.counting:
             self.timer.stop()
             self._status = TimerStatus.paused
-        self._status = TimerStatus.init
-        self._left_seconds = self.focus_seconds
-        self.timer.stop()
-        self.showTime()
+
+        #Timer is "Stopped"
+        elif self._status == TimerStatus.paused:
+            self._left_seconds = self.focus_seconds
+            self._status = TimerStatus.init
+            self.showTime()
+            self.rest_init()
+
 
     def _countdown_and_show(self):
-        if self._left_seconds > 0:
-            self._left_seconds -= 1
-            self.showTime()
-        else:
-            self.page.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
+        self._left_seconds -= 1
+        self.showTime()
+        if self._left_seconds <0 :
+            self.page.ui.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
                                                  "stop:0 rgba(254,88,88,1), stop: 1 rgba(238,150,23,1))\n"
                                                  "")
-            self.showTime()
-            self._status = TimerStatus.init
-            self._left_seconds = self.focus_seconds
 
     def showTime(self):
-        total_seconds = min(self._left_seconds, 359940)  # Max time: 99:59:00
-        hours = total_seconds // 3600
-        total_seconds = total_seconds - (hours * 3600)
-        minutes = total_seconds // 60
-        seconds = total_seconds - (minutes * 60)
-        self.time_string = "{:02}:{:02}".format(int(minutes), int(seconds))
+        if self._left_seconds >= 0:
+            minutes = self._left_seconds // 60
+            seconds = self._left_seconds - (minutes * 60)
+            self.time_string = "{:02}:{:02}".format(int(minutes), int(seconds))
+        else:
+            minutes = abs(self._left_seconds) // 60
+            seconds = abs(self._left_seconds) - (minutes * 60)
+            self.time_string = "-{:02}:{:02}".format(int(minutes), int(seconds))
+
         self.set_value(self.time_string)
 
     def _edit_event(self, value):
@@ -175,73 +175,25 @@ class CircularProgress(QWidget):
             self._left_seconds = value * 60
             self.showTime()
 
+    def rest_init(self):
+        self.focus_status = FocusStatus.rest
+        self.page.ui.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
+                                                  "stop:0 rgba(5,88,200,1), stop: 1 rgba(0,0,23,1))\n"
+                                                  "")
+        print(self.page.is_maximized)
+        if not self.page.is_maximized:
+            self.page.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
+            self.page.show()
 
 
-class TimerStatus(enum.Enum):
+
+
+
+class TimerStatus:
     init, counting, paused = 1, 2, 3
 
-class Timerwidget:
-    def _countdown_and_show(self):
-        if self._left_seconds > 0:
-            self._left_seconds -= 1
-            self.showTime()
-        else:
-            self.page.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
-                                                 "stop:0 rgba(254,88,88,1), stop: 1 rgba(238,150,23,1))\n"
-                                                 "")
-            self.showTime()
-            self._status = TimerStatus.init
-            self._left_seconds = self.minutesSpinBox.value() * 60
-
-    def _start_event(self):
-        if (self._status == TimerStatus.init or self._status == TimerStatus.paused) and self._left_seconds > 0:
-            self._left_seconds -= 1
-            self._status = TimerStatus.counting
-            self.showTime()
-            self.timer.start(1000)
-        elif self._status == TimerStatus.counting:
-            self.page.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
-                                                 "stop:0 rgba(254,88,88,1), stop: 1 rgba(238,150,23,1))\n"
-                                                 "")
-            self._status = TimerStatus.paused
-
-    def _reset_event(self):
-        self._status = TimerStatus.init
-        self._left_seconds = self.minutesSpinBox.value() * 60
-        self.timer.stop()
-        self.showTime()
-
-    def _edit_event(self):
-        if self._status == TimerStatus.init:
-            self._left_seconds = self.minutesSpinBox.value() * 60
-            self.showTime()
-
-    def showTime(self):
-        total_seconds = min(self._left_seconds, 359940)  # Max time: 99:59:00
-        hours = total_seconds // 3600
-        total_seconds = total_seconds - (hours * 3600)
-        minutes = total_seconds // 60
-        seconds = total_seconds - (minutes * 60)
-        self.displayArea.setText("{:02}:{:02}:{:02}".format(int(hours), int(minutes), int(seconds)))
-        self.displayArea.setAlignment(Qt.AlignHCenter)
-
-    def setWidgets(self):
-        hbox = QHBoxLayout()
-        hbox.addWidget(self.minutesLabel)
-        hbox.addWidget(self.minutesSpinBox)
-        hbox.addWidget(self.startButton)
-        hbox.addWidget(self.resetButton)
-        hbox.setAlignment(Qt.AlignLeft)
-        vbox = QVBoxLayout()
-        vbox.addLayout(hbox)
-        vbox.addWidget(self.displayArea)
-        self.setLayout(vbox)
-
-    def rest_start_event(self):
-        self.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
-                                             "stop:0 rgba(152, 222, 91,1), stop: 1 rgba(8, 225, 174,1))\n"
-                                             "")
-
+class FocusStatus:
+    focus, rest = 1, 2
 
 if __name__ == "__main__":
     progress = CircularProgress()

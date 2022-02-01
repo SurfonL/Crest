@@ -48,7 +48,12 @@ class MainWindow(QMainWindow):
         # LOAD DICT SETTINGS FROM "settings.json" FILE
         # ///////////////////////////////////////////////////////////////
         self.settings = Settings()
-
+        
+        ######################
+        #variables init
+        self.is_maximized = False
+        
+        
         # 로그인 페이지에서 엔터 누르면 넘어감
         self.ui.password.keyReleaseEvent = self.check_login
 
@@ -84,8 +89,6 @@ class MainWindow(QMainWindow):
         #left menu pomodoro page
         self.pomodoro_button.clicked.connect(lambda: self.ui.bg_app.setCurrentWidget(self.ui.pomodoro_appPage2))
         self.timer = CircularProgress(self)
-        # self.timer = CircularProgress(int(self.ui.focus_edit.text()) * 60)
-        #TODO: place  circular widget at the center
         self.ui.clock_layout0.addWidget(self.timer)
         self.pomo_home_btn = WhiteButton(
             self,
@@ -102,7 +105,6 @@ class MainWindow(QMainWindow):
             "images/icons_svg/play.png",
             60,
             60,
-            "images/icons_svg/play.png"
         )
         self.pomo_pause_btn = PomoButton(
             self,
@@ -110,13 +112,19 @@ class MainWindow(QMainWindow):
             "images/icons_svg/pause.png",
             60,
             60,
-            "images/icons_svg/stop.png"
         )
-        self.ui.play_button_layout.addWidget(self.pomo_play_btn, alignment=Qt.AlignCenter)
-        self.ui.pause_button_layout.addWidget(self.pomo_pause_btn, alignment=Qt.AlignCenter)
+        self.ui.pomo_buttons_layout.addWidget(self.pomo_play_btn, alignment=Qt.AlignCenter)
+        self.ui.pomo_buttons_layout.addWidget(self.pomo_pause_btn, alignment=Qt.AlignCenter)
+        self.pomo_pause_btn.hide()
+
 
         self.pomo_play_btn.clicked.connect(lambda: self.timer._start_event(int(self.ui.focus_edit.text())*60))
+        self.pomo_play_btn.clicked.connect(self.hide_show)
+
+
         self.pomo_pause_btn.clicked.connect(self.timer._reset_event)
+        self.pomo_pause_btn.clicked.connect(self.hide_show)
+
 
         self.ui.focus_edit.keyReleaseEvent = self.set_focus_time
 
@@ -147,7 +155,7 @@ class MainWindow(QMainWindow):
         # ///////////////////////////////////////////////////////////////
 
         self.maximize_minimize()
-        self.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint)
+        self.setWindowFlags(Qt.FramelessWindowHint)
 
         # SHOW MAIN WINDOW
         # ///////////////////////////////////////////////////////////////
@@ -196,11 +204,10 @@ class MainWindow(QMainWindow):
     #         event.ignore()
 
     def maximize_minimize(self):
-        global _is_maximized
 
         # CHANGE UI AND RESIZE GRIP
         def change_ui():
-            if _is_maximized:
+            if self.is_maximized:
                 self.ui.margins_app.setContentsMargins(0, 0, 0, 0)
                 self.ui.maximize_restore_app_btn.setToolTip("Restore")
                 self.ui.maximize_restore_app_btn.setStyleSheet(
@@ -213,11 +220,11 @@ class MainWindow(QMainWindow):
 
         # CHECK EVENT
         if self.isMaximized():
-            _is_maximized = False
+            self.is_maximized = False
             self.showMinimized()
             change_ui()
         else:
-            _is_maximized = True
+            self.is_maximized = True
             self.showMaximized()
             change_ui()
 
@@ -225,6 +232,25 @@ class MainWindow(QMainWindow):
         if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
             value = int(self.ui.focus_edit.text())
             self.timer._edit_event(value)
+
+    def hide_show(self):
+        if self.timer._status == 2:
+            self.pomo_play_btn.hide()
+            self.pomo_pause_btn.original_icon()
+            self.pomo_pause_btn.show()
+
+        elif self.timer._status == 3 :
+            self.pomo_play_btn.show()
+            self.pomo_pause_btn.stop_icon()
+
+        elif self.timer._status == 1:
+            self.pomo_play_btn.show()
+            self.pomo_pause_btn.hide()
+            self.pomo_pause_btn.original_icon()
+
+
+
+
 
 
 

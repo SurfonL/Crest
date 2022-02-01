@@ -987,26 +987,7 @@ stop:0 rgba(152, 222, 91,1), stop: 1 rgba(8, 225, 174,1))
             <number>0</number>
            </property>
            <item>
-            <widget class="QFrame" name="frame_7">
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
-             <layout class="QVBoxLayout" name="play_button_layout"/>
-            </widget>
-           </item>
-           <item>
-            <widget class="QFrame" name="frame_6">
-             <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
-             <layout class="QVBoxLayout" name="pause_button_layout"/>
-            </widget>
+            <layout class="QHBoxLayout" name="pomo_buttons_layout"/>
            </item>
           </layout>
          </widget>
@@ -1136,7 +1117,7 @@ stop:0 rgba(152, 222, 91,1), stop: 1 rgba(8, 225, 174,1))
                  <string>25</string>
                 </property>
                 <property name="maxLength">
-                 <number>32767</number>
+                 <number>2</number>
                 </property>
                 <property name="frame">
                  <bool>false</bool>

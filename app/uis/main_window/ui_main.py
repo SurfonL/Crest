@@ -547,23 +547,10 @@ class Ui_MainWindow(object):
         self.buttons_layout.setSpacing(0)
         self.buttons_layout.setObjectName(u"buttons_layout")
         self.buttons_layout.setContentsMargins(0, 0, 0, 0)
-        self.frame_7 = QFrame(self.frame_4)
-        self.frame_7.setObjectName(u"frame_7")
-        self.frame_7.setFrameShape(QFrame.StyledPanel)
-        self.frame_7.setFrameShadow(QFrame.Raised)
-        self.play_button_layout = QVBoxLayout(self.frame_7)
-        self.play_button_layout.setObjectName(u"play_button_layout")
+        self.pomo_buttons_layout = QHBoxLayout()
+        self.pomo_buttons_layout.setObjectName(u"pomo_buttons_layout")
 
-        self.buttons_layout.addWidget(self.frame_7)
-
-        self.frame_6 = QFrame(self.frame_4)
-        self.frame_6.setObjectName(u"frame_6")
-        self.frame_6.setFrameShape(QFrame.StyledPanel)
-        self.frame_6.setFrameShadow(QFrame.Raised)
-        self.pause_button_layout = QVBoxLayout(self.frame_6)
-        self.pause_button_layout.setObjectName(u"pause_button_layout")
-
-        self.buttons_layout.addWidget(self.frame_6)
+        self.buttons_layout.addLayout(self.pomo_buttons_layout)
 
 
         self.gridLayout.addWidget(self.frame_4, 3, 1, 1, 1)
