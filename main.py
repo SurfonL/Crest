@@ -118,7 +118,7 @@ class MainWindow(QMainWindow):
         self.pomo_pause_btn.hide()
 
 
-        self.pomo_play_btn.clicked.connect(lambda: self.timer._start_event(int(self.ui.focus_edit.text())*60))
+        self.pomo_play_btn.clicked.connect(self.timer._start_event)
         self.pomo_play_btn.clicked.connect(self.hide_show)
 
 
@@ -127,12 +127,7 @@ class MainWindow(QMainWindow):
 
 
         self.ui.focus_edit.keyReleaseEvent = self.set_focus_time
-
-
-
-
-
-
+        self.ui.rest_edit.keyReleaseEvent = self.set_rest_time
 
 
 
@@ -156,6 +151,7 @@ class MainWindow(QMainWindow):
 
         self.maximize_minimize()
         self.setWindowFlags(Qt.FramelessWindowHint)
+
 
         # SHOW MAIN WINDOW
         # ///////////////////////////////////////////////////////////////
@@ -231,7 +227,12 @@ class MainWindow(QMainWindow):
     def set_focus_time(self,event):
         if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
             value = int(self.ui.focus_edit.text())
-            self.timer._edit_event(value)
+            self.timer.focus_edit_event(value)
+
+    def set_rest_time(self,event):
+        if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
+            value = int(self.ui.rest_edit.text())
+            self.timer.rest_edit_event(value)
 
     def hide_show(self):
         if self.timer._status == 2:

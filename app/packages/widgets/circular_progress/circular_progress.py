@@ -32,7 +32,7 @@ class CircularProgress(QWidget):
         # Text
         self.enable_text = True
         self.font_family = "Segoe UI"
-        self.font_size = 30
+        self.font_size = 50
         self.suffix = "%"
         self.text_color = 0xffffff
         # BG
@@ -45,13 +45,14 @@ class CircularProgress(QWidget):
 
 
         #Timer things...
+        self.init_seconds = int(self.page.ui.focus_edit.text()) * 60
         self.focus_seconds = int(self.page.ui.focus_edit.text()) * 60
         self.rest_seconds = int(self.page.ui.rest_edit.text()) * 60
-        minutes = self.focus_seconds // 60
-        seconds = self.focus_seconds - (minutes * 60)
+        minutes = self.init_seconds // 60
+        seconds = self.init_seconds - (minutes * 60)
         self.time_string = "{:02}:{:02}".format(int(minutes), int(seconds))
         self._status = TimerStatus.init
-        self._left_seconds = self.focus_seconds
+        self._left_seconds = self.init_seconds
         self.timer = QTimer()
         self.timer.timeout.connect(self._countdown_and_show)
         self.showTime()
@@ -81,11 +82,7 @@ class CircularProgress(QWidget):
         width = self.width - self.progress_width
         height = self.height - self.progress_width
         margin = self.progress_width / 2
-        percentage = self._left_seconds / self.focus_seconds * 100 - 100
-
-
-        print(self._left_seconds, self.focus_seconds, percentage)
-
+        percentage = self._left_seconds / self.init_seconds * 100 - 100
 
         value =  percentage* 360 / self.max_value
 
@@ -128,34 +125,42 @@ class CircularProgress(QWidget):
         # END
         paint.end()
 
-    def _start_event(self, value):
+    def _start_event(self):
         if (self._status == TimerStatus.init or self._status == TimerStatus.paused):
             self._left_seconds -= 1
             self._status = TimerStatus.counting
             self.showTime()
             self.timer.start(1000)
-        self.focus_seconds = value
 
+
+    #called when paus/stop button is pressed
     def _reset_event(self):
         if self._status == TimerStatus.counting:
-            self.timer.stop()
             self._status = TimerStatus.paused
 
         #Timer is "Stopped"
-        elif self._status == TimerStatus.paused:
-            self._left_seconds = self.focus_seconds
+        elif self._status == TimerStatus.paused and self.focus_status == FocusStatus.focus:
+            self.rest_init()
+            self._left_seconds = self.init_seconds
             self._status = TimerStatus.init
             self.showTime()
-            self.rest_init()
+
+        elif self._status == TimerStatus.paused and self.focus_status == FocusStatus.rest:
+            self.focus_init()
+            self._left_seconds = self.init_seconds
+            self._status = TimerStatus.init
+            self.showTime()
 
 
     def _countdown_and_show(self):
         self._left_seconds -= 1
         self.showTime()
-        if self._left_seconds <0 :
+        if self._left_seconds < 0:
             self.page.ui.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
                                                  "stop:0 rgba(254,88,88,1), stop: 1 rgba(238,150,23,1))\n"
                                                  "")
+            self.on_top_event()
+
 
     def showTime(self):
         if self._left_seconds >= 0:
@@ -169,21 +174,75 @@ class CircularProgress(QWidget):
 
         self.set_value(self.time_string)
 
-    def _edit_event(self, value):
-        if self._status == TimerStatus.init:
-            self.focus_seconds = value * 60
-            self._left_seconds = value * 60
-            self.showTime()
+
+    def focus_edit_event(self, value):
+        self.focus_seconds = value * 60
+        if self.focus_status == FocusStatus.focus:
+            if self._status == TimerStatus.counting:
+                self.init_seconds = self.focus_seconds
+            else:
+                self.init_seconds = self.focus_seconds
+                self._left_seconds = self.focus_seconds
+                self.showTime()
+
+
+
+    def rest_edit_event(self,value):
+        self.rest_seconds = value * 60
+        if self.focus_status == FocusStatus.rest:
+            if self._status == TimerStatus.counting:
+                self.init_seconds = self.rest_seconds
+            else:
+                self.init_seconds = self.rest_seconds
+                self._left_seconds = self.rest_seconds
+                self.showTime()
+
 
     def rest_init(self):
         self.focus_status = FocusStatus.rest
+        self.init_seconds = self.rest_seconds
         self.page.ui.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
-                                                  "stop:0 rgba(5,88,200,1), stop: 1 rgba(0,0,23,1))\n"
+                                                  "stop:0 rgba(8, 126, 225,1), stop: 1 rgba(5, 232, 186,1))\n"
                                                   "")
-        print(self.page.is_maximized)
-        if not self.page.is_maximized:
+
+    def focus_init(self):
+        self.focus_status = FocusStatus.focus
+        self.init_seconds = self.focus_seconds
+        self.page.ui.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
+                                             "stop:0 rgba(152, 222, 91,1), stop: 1 rgba(8, 225, 174,1))\n"
+                                             "")
+
+
+    def on_top_event(self):
+        if not self.page.isActiveWindow():
+            # from pywin32 import SetWindowPos
+            # import win32con
+            #
+            # SetWindowPos(self.page.winId(),
+            #              win32con.HWND_TOPMOST,
+            #              # = always on top. only reliable way to bring it to the front on windows
+            #              0, 0, 0, 0,
+            #              win32con.SWP_NOMOVE | win32con.SWP_NOSIZE | win32con.SWP_SHOWWINDOW)
+            # SetWindowPos(self.page.winId(),
+            #              win32con.HWND_NOTOPMOST,  # disable the always on top, but leave window at its top position
+            #              0, 0, 0, 0,
+            #              win32con.SWP_NOMOVE | win32con.SWP_NOSIZE | win32con.SWP_SHOWWINDOW)
+            # self.page.raise_()
+            # self.page.show()
+            # self.page.activateWindow()
+
+
+            self.page.pomodoro_button.clicked.connect(lambda: self.page.ui.bg_app.setCurrentWidget(self.page.ui.pomodoro_appPage2))
+            self.page.maximize_minimize()
             self.page.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
             self.page.show()
+            self.page.setWindowFlags(Qt.FramelessWindowHint)
+            self.page.show()
+            self.page.setFocus()
+            self.page.activateWindow()
+
+
+
 
 
 
