@@ -39,11 +39,15 @@ class MainWindow(QMainWindow):
         # Load widgets inside MainWindow
         # ///////////////////////////////////////////////////////////////
         self.ui = Ui_MainWindow()
+
         self.ui.setupUi(self)
+
 
         # SET DEFAULT PAGE
         # ///////////////////////////////////////////////////////////////
+
         self.ui.app_pages.setCurrentWidget(self.ui.home)
+        self.ui.app_pages.setCurrentWidget(self.ui.pomodoro_appPage2)
 
         # LOAD DICT SETTINGS FROM "settings.json" FILE
         # ///////////////////////////////////////////////////////////////
@@ -56,6 +60,7 @@ class MainWindow(QMainWindow):
         
         # 로그인 페이지에서 엔터 누르면 넘어감
         self.ui.password.keyReleaseEvent = self.check_login
+        self.ui.app_pages.setCurrentWidget(self.ui.pomodoro_appPage2)
 
         #왼쪽 바: 아이콘, 세팅 버튼 등: TODO: 오른쪽으로 옮겨
         self.chat_button = LeftMenuButton(
@@ -149,7 +154,7 @@ class MainWindow(QMainWindow):
         #Window settings
         # ///////////////////////////////////////////////////////////////
 
-        self.maximize_minimize()
+        # self.maximize_minimize()
         self.setWindowFlags(Qt.FramelessWindowHint)
 
 
@@ -184,7 +189,7 @@ class MainWindow(QMainWindow):
         ui_functions.UiFunctions.resize_grips(self)
 
     # MOUSE CLICK EVENTS
-    # ///////////////////////////////////////////////////////////////
+# ///////////////////////////////////////////////////////////////
     def mousePressEvent(self, event):
         # SET DRAG POS WINDOW
         self.dragPos = event.globalPos()
@@ -193,8 +198,9 @@ class MainWindow(QMainWindow):
     # 내가 추가한 함수들
 
     def keyPressEvent(self, event):
-        if event.key() == Qt.Key_Shift and Qt.Key_Alt:
+        if event.key() == Qt.Key_CapsLock:
             self.maximize_minimize()
+            # self.ui.app_pages.setCurrentWidget(self.ui.pomodoro_appPage2)
 
     # def closeEvent(self, event):
     #         event.ignore()

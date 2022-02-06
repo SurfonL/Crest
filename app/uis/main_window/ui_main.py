@@ -13,6 +13,7 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
 from . resources_rc import *
+# -*- coding: utf-8 -*-
 
 
 class Ui_MainWindow(object):
@@ -255,8 +256,154 @@ class Ui_MainWindow(object):
         self.bg_app.setFrameShape(QFrame.NoFrame)
         self.bg_app.setFrameShadow(QFrame.Raised)
         self.bg_app.setLineWidth(0)
+        self.pomodoro_appPage2 = QWidget()
+        self.pomodoro_appPage2.setObjectName(u"pomodoro_appPage2")
+        self.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
+"stop:0 rgba(152, 222, 91,1), stop: 1 rgba(8, 225, 174,1))\n"
+"")
+        self.gridLayout = QGridLayout(self.pomodoro_appPage2)
+        self.gridLayout.setSpacing(0)
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.frame_3 = QFrame(self.pomodoro_appPage2)
+        self.frame_3.setObjectName(u"frame_3")
+        self.frame_3.setMinimumSize(QSize(500, 500))
+        self.frame_3.setMaximumSize(QSize(500, 500))
+        self.frame_3.setStyleSheet(u"background: None")
+        self.frame_3.setFrameShape(QFrame.NoFrame)
+        self.frame_3.setFrameShadow(QFrame.Raised)
+        self.clock_layout0 = QVBoxLayout(self.frame_3)
+        self.clock_layout0.setSpacing(0)
+        self.clock_layout0.setObjectName(u"clock_layout0")
+        self.clock_layout0.setSizeConstraint(QLayout.SetDefaultConstraint)
+        self.clock_layout0.setContentsMargins(0, 0, 0, 0)
+
+        self.gridLayout.addWidget(self.frame_3, 1, 1, 1, 1, Qt.AlignHCenter|Qt.AlignVCenter)
+
+        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout.addItem(self.verticalSpacer_3, 4, 1, 1, 1)
+
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout.addItem(self.horizontalSpacer_2, 1, 0, 1, 1)
+
+        self.verticalSpacer_4 = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout.addItem(self.verticalSpacer_4, 0, 1, 1, 1)
+
+        self.verticalSpacer_6 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Fixed)
+
+        self.gridLayout.addItem(self.verticalSpacer_6, 2, 1, 1, 1)
+
+        self.frame_4 = QFrame(self.pomodoro_appPage2)
+        self.frame_4.setObjectName(u"frame_4")
+        self.frame_4.setMinimumSize(QSize(0, 60))
+        self.frame_4.setStyleSheet(u"background: None")
+        self.frame_4.setFrameShape(QFrame.StyledPanel)
+        self.frame_4.setFrameShadow(QFrame.Raised)
+        self.buttons_layout = QHBoxLayout(self.frame_4)
+        self.buttons_layout.setSpacing(0)
+        self.buttons_layout.setObjectName(u"buttons_layout")
+        self.buttons_layout.setContentsMargins(0, 0, 0, 0)
+        self.pomo_buttons_layout = QHBoxLayout()
+        self.pomo_buttons_layout.setObjectName(u"pomo_buttons_layout")
+
+        self.buttons_layout.addLayout(self.pomo_buttons_layout)
+
+
+        self.gridLayout.addWidget(self.frame_4, 3, 1, 1, 1)
+
+        self.frame = QFrame(self.pomodoro_appPage2)
+        self.frame.setObjectName(u"frame")
+        self.frame.setStyleSheet(u"background: None")
+        self.frame.setFrameShape(QFrame.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Raised)
+        self.gridLayout_2 = QGridLayout(self.frame)
+        self.gridLayout_2.setObjectName(u"gridLayout_2")
+        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout_2.addItem(self.horizontalSpacer_4, 0, 0, 1, 1)
+
+        self.frame_2 = QFrame(self.frame)
+        self.frame_2.setObjectName(u"frame_2")
+        self.frame_2.setMinimumSize(QSize(45, 45))
+        self.frame_2.setFrameShape(QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QFrame.Raised)
+        self.pomo_home = QVBoxLayout(self.frame_2)
+        self.pomo_home.setSpacing(0)
+        self.pomo_home.setObjectName(u"pomo_home")
+        self.pomo_home.setContentsMargins(0, 0, 0, 0)
+
+        self.gridLayout_2.addWidget(self.frame_2, 0, 1, 1, 1)
+
+        self.verticalSpacer_5 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout_2.addItem(self.verticalSpacer_5, 3, 1, 1, 1)
+
+        self.frame_8 = QFrame(self.frame)
+        self.frame_8.setObjectName(u"frame_8")
+        self.frame_8.setMinimumSize(QSize(45, 20))
+        self.frame_8.setMaximumSize(QSize(45, 20))
+        self.frame_8.setFrameShape(QFrame.StyledPanel)
+        self.frame_8.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_2 = QHBoxLayout(self.frame_8)
+        self.horizontalLayout_2.setSpacing(0)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.focus_edit = QLineEdit(self.frame_8)
+        self.focus_edit.setObjectName(u"focus_edit")
+        self.focus_edit.setCursor(QCursor(Qt.ArrowCursor))
+        self.focus_edit.setMouseTracking(False)
+        self.focus_edit.setStyleSheet(u"background: rgba(255,255,255,0)")
+        self.focus_edit.setMaxLength(2)
+        self.focus_edit.setFrame(False)
+        self.focus_edit.setAlignment(Qt.AlignCenter)
+        self.focus_edit.setClearButtonEnabled(False)
+
+        self.horizontalLayout_2.addWidget(self.focus_edit)
+
+
+        self.gridLayout_2.addWidget(self.frame_8, 1, 1, 1, 1)
+
+        self.frame_9 = QFrame(self.frame)
+        self.frame_9.setObjectName(u"frame_9")
+        self.frame_9.setMinimumSize(QSize(45, 20))
+        self.frame_9.setMaximumSize(QSize(45, 20))
+        self.frame_9.setFrameShape(QFrame.StyledPanel)
+        self.frame_9.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_3 = QHBoxLayout(self.frame_9)
+        self.horizontalLayout_3.setSpacing(0)
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.rest_edit = QLineEdit(self.frame_9)
+        self.rest_edit.setObjectName(u"rest_edit")
+        font = QFont()
+        font.setPointSize(9)
+        font.setBold(False)
+        font.setItalic(False)
+        self.rest_edit.setFont(font)
+        self.rest_edit.setCursor(QCursor(Qt.ArrowCursor))
+        self.rest_edit.setMouseTracking(False)
+        self.rest_edit.setStyleSheet(u"background: rgba(255,255,255,0);")
+        self.rest_edit.setMaxLength(2)
+        self.rest_edit.setFrame(False)
+        self.rest_edit.setAlignment(Qt.AlignCenter)
+        self.rest_edit.setCursorMoveStyle(Qt.LogicalMoveStyle)
+        self.rest_edit.setClearButtonEnabled(False)
+
+        self.horizontalLayout_3.addWidget(self.rest_edit)
+
+
+        self.gridLayout_2.addWidget(self.frame_9, 2, 1, 1, 1)
+
+
+        self.gridLayout.addWidget(self.frame, 0, 2, 2, 1)
+
+        self.bg_app.addWidget(self.pomodoro_appPage2)
         self.psd_appPage0 = QWidget()
         self.psd_appPage0.setObjectName(u"psd_appPage0")
+        self.psd_appPage0.setEnabled(True)
         self.psd_appPage0.setStyleSheet(u"#bg {\n"
 "	background-color: rgb(0, 0, 0);\n"
 "	border-radius: 10px;\n"
@@ -367,12 +514,12 @@ class Ui_MainWindow(object):
 
         self.right_content = QFrame(self.bg_appPage1)
         self.right_content.setObjectName(u"right_content")
-        font = QFont()
-        font.setPointSize(9)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setStyleStrategy(QFont.PreferAntialias)
-        self.right_content.setFont(font)
+        font1 = QFont()
+        font1.setPointSize(9)
+        font1.setBold(False)
+        font1.setItalic(False)
+        font1.setStyleStrategy(QFont.PreferAntialias)
+        self.right_content.setFont(font1)
         self.right_content.setFrameShape(QFrame.NoFrame)
         self.right_content.setFrameShadow(QFrame.Raised)
         self.right_content.setLineWidth(0)
@@ -411,12 +558,12 @@ class Ui_MainWindow(object):
         self.minimize_app_btn.setObjectName(u"minimize_app_btn")
         self.minimize_app_btn.setMinimumSize(QSize(28, 28))
         self.minimize_app_btn.setMaximumSize(QSize(28, 28))
-        font1 = QFont()
-        font1.setPointSize(9)
-        font1.setBold(False)
-        font1.setItalic(False)
-        font1.setStyleStrategy(QFont.NoAntialias)
-        self.minimize_app_btn.setFont(font1)
+        font2 = QFont()
+        font2.setPointSize(9)
+        font2.setBold(False)
+        font2.setItalic(False)
+        font2.setStyleStrategy(QFont.NoAntialias)
+        self.minimize_app_btn.setFont(font2)
         self.minimize_app_btn.setCursor(QCursor(Qt.PointingHandCursor))
         self.minimize_app_btn.setStyleSheet(u"background-image: url(:/icons_svg/images/icons_svg/icon_minimize.svg);")
         self.minimize_app_btn.setIconSize(QSize(20, 20))
@@ -427,12 +574,12 @@ class Ui_MainWindow(object):
         self.maximize_restore_app_btn.setObjectName(u"maximize_restore_app_btn")
         self.maximize_restore_app_btn.setMinimumSize(QSize(28, 28))
         self.maximize_restore_app_btn.setMaximumSize(QSize(28, 28))
-        font2 = QFont()
-        font2.setPointSize(9)
-        font2.setBold(False)
-        font2.setItalic(False)
-        font2.setStyleStrategy(QFont.PreferDefault)
-        self.maximize_restore_app_btn.setFont(font2)
+        font3 = QFont()
+        font3.setPointSize(9)
+        font3.setBold(False)
+        font3.setItalic(False)
+        font3.setStyleStrategy(QFont.PreferDefault)
+        self.maximize_restore_app_btn.setFont(font3)
         self.maximize_restore_app_btn.setCursor(QCursor(Qt.PointingHandCursor))
         self.maximize_restore_app_btn.setStyleSheet(u"background-image: url(:/icons_svg/images/icons_svg/icon_maximize.svg);")
         self.maximize_restore_app_btn.setIconSize(QSize(20, 20))
@@ -497,151 +644,6 @@ class Ui_MainWindow(object):
         self.base_Layout.addLayout(self.horizontal_Layout)
 
         self.bg_app.addWidget(self.bg_appPage1)
-        self.pomodoro_appPage2 = QWidget()
-        self.pomodoro_appPage2.setObjectName(u"pomodoro_appPage2")
-        self.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
-"stop:0 rgba(152, 222, 91,1), stop: 1 rgba(8, 225, 174,1))\n"
-"")
-        self.gridLayout = QGridLayout(self.pomodoro_appPage2)
-        self.gridLayout.setSpacing(0)
-        self.gridLayout.setObjectName(u"gridLayout")
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
-        self.frame_3 = QFrame(self.pomodoro_appPage2)
-        self.frame_3.setObjectName(u"frame_3")
-        self.frame_3.setMinimumSize(QSize(500, 500))
-        self.frame_3.setMaximumSize(QSize(500, 500))
-        self.frame_3.setStyleSheet(u"background: None")
-        self.frame_3.setFrameShape(QFrame.NoFrame)
-        self.frame_3.setFrameShadow(QFrame.Raised)
-        self.clock_layout0 = QVBoxLayout(self.frame_3)
-        self.clock_layout0.setSpacing(0)
-        self.clock_layout0.setObjectName(u"clock_layout0")
-        self.clock_layout0.setSizeConstraint(QLayout.SetDefaultConstraint)
-        self.clock_layout0.setContentsMargins(0, 0, 0, 0)
-
-        self.gridLayout.addWidget(self.frame_3, 1, 1, 1, 1, Qt.AlignHCenter|Qt.AlignVCenter)
-
-        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout.addItem(self.verticalSpacer_3, 4, 1, 1, 1)
-
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout.addItem(self.horizontalSpacer_2, 1, 0, 1, 1)
-
-        self.verticalSpacer_4 = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout.addItem(self.verticalSpacer_4, 0, 1, 1, 1)
-
-        self.verticalSpacer_6 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Fixed)
-
-        self.gridLayout.addItem(self.verticalSpacer_6, 2, 1, 1, 1)
-
-        self.frame_4 = QFrame(self.pomodoro_appPage2)
-        self.frame_4.setObjectName(u"frame_4")
-        self.frame_4.setMinimumSize(QSize(0, 60))
-        self.frame_4.setStyleSheet(u"background: None")
-        self.frame_4.setFrameShape(QFrame.StyledPanel)
-        self.frame_4.setFrameShadow(QFrame.Raised)
-        self.buttons_layout = QHBoxLayout(self.frame_4)
-        self.buttons_layout.setSpacing(0)
-        self.buttons_layout.setObjectName(u"buttons_layout")
-        self.buttons_layout.setContentsMargins(0, 0, 0, 0)
-        self.pomo_buttons_layout = QHBoxLayout()
-        self.pomo_buttons_layout.setObjectName(u"pomo_buttons_layout")
-
-        self.buttons_layout.addLayout(self.pomo_buttons_layout)
-
-
-        self.gridLayout.addWidget(self.frame_4, 3, 1, 1, 1)
-
-        self.frame = QFrame(self.pomodoro_appPage2)
-        self.frame.setObjectName(u"frame")
-        self.frame.setStyleSheet(u"background: None")
-        self.frame.setFrameShape(QFrame.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Raised)
-        self.gridLayout_2 = QGridLayout(self.frame)
-        self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout_2.addItem(self.horizontalSpacer_4, 0, 0, 1, 1)
-
-        self.frame_2 = QFrame(self.frame)
-        self.frame_2.setObjectName(u"frame_2")
-        self.frame_2.setMinimumSize(QSize(45, 45))
-        self.frame_2.setFrameShape(QFrame.StyledPanel)
-        self.frame_2.setFrameShadow(QFrame.Raised)
-        self.pomo_home = QVBoxLayout(self.frame_2)
-        self.pomo_home.setSpacing(0)
-        self.pomo_home.setObjectName(u"pomo_home")
-        self.pomo_home.setContentsMargins(0, 0, 0, 0)
-
-        self.gridLayout_2.addWidget(self.frame_2, 0, 1, 1, 1)
-
-        self.verticalSpacer_5 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout_2.addItem(self.verticalSpacer_5, 3, 1, 1, 1)
-
-        self.frame_8 = QFrame(self.frame)
-        self.frame_8.setObjectName(u"frame_8")
-        self.frame_8.setMinimumSize(QSize(45, 20))
-        self.frame_8.setMaximumSize(QSize(45, 20))
-        self.frame_8.setFrameShape(QFrame.StyledPanel)
-        self.frame_8.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_2 = QHBoxLayout(self.frame_8)
-        self.horizontalLayout_2.setSpacing(0)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.focus_edit = QLineEdit(self.frame_8)
-        self.focus_edit.setObjectName(u"focus_edit")
-        self.focus_edit.setCursor(QCursor(Qt.ArrowCursor))
-        self.focus_edit.setMouseTracking(False)
-        self.focus_edit.setStyleSheet(u"background: rgba(255,255,255,0)")
-        self.focus_edit.setMaxLength(32767)
-        self.focus_edit.setFrame(False)
-        self.focus_edit.setAlignment(Qt.AlignCenter)
-        self.focus_edit.setClearButtonEnabled(False)
-
-        self.horizontalLayout_2.addWidget(self.focus_edit)
-
-
-        self.gridLayout_2.addWidget(self.frame_8, 1, 1, 1, 1)
-
-        self.frame_9 = QFrame(self.frame)
-        self.frame_9.setObjectName(u"frame_9")
-        self.frame_9.setMinimumSize(QSize(45, 20))
-        self.frame_9.setMaximumSize(QSize(45, 20))
-        self.frame_9.setFrameShape(QFrame.StyledPanel)
-        self.frame_9.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_3 = QHBoxLayout(self.frame_9)
-        self.horizontalLayout_3.setSpacing(0)
-        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.rest_edit = QLineEdit(self.frame_9)
-        self.rest_edit.setObjectName(u"rest_edit")
-        font3 = QFont()
-        font3.setPointSize(9)
-        font3.setBold(False)
-        font3.setItalic(False)
-        self.rest_edit.setFont(font3)
-        self.rest_edit.setCursor(QCursor(Qt.ArrowCursor))
-        self.rest_edit.setMouseTracking(False)
-        self.rest_edit.setStyleSheet(u"background: rgba(255,255,255,0);")
-        self.rest_edit.setMaxLength(2)
-        self.rest_edit.setFrame(False)
-        self.rest_edit.setAlignment(Qt.AlignCenter)
-        self.rest_edit.setCursorMoveStyle(Qt.LogicalMoveStyle)
-        self.rest_edit.setClearButtonEnabled(False)
-
-        self.horizontalLayout_3.addWidget(self.rest_edit)
-
-
-        self.gridLayout_2.addWidget(self.frame_9, 2, 1, 1, 1)
-
-
-        self.gridLayout.addWidget(self.frame, 0, 2, 2, 1)
-
-        self.bg_app.addWidget(self.pomodoro_appPage2)
 
         self.margins_app.addWidget(self.bg_app)
 
@@ -657,6 +659,10 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.focus_edit.setInputMask("")
+        self.focus_edit.setText(QCoreApplication.translate("MainWindow", u"25", None))
+        self.rest_edit.setInputMask("")
+        self.rest_edit.setText(QCoreApplication.translate("MainWindow", u"5", None))
         self.password.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Who are you?", None))
         self.title_bar.setText("")
 #if QT_CONFIG(tooltip)
@@ -671,9 +677,5 @@ class Ui_MainWindow(object):
         self.close_app_btn.setToolTip(QCoreApplication.translate("MainWindow", u"Close", None))
 #endif // QT_CONFIG(tooltip)
         self.close_app_btn.setText("")
-        self.focus_edit.setInputMask("")
-        self.focus_edit.setText(QCoreApplication.translate("MainWindow", u"25", None))
-        self.rest_edit.setInputMask("")
-        self.rest_edit.setText(QCoreApplication.translate("MainWindow", u"5", None))
     # retranslateUi
 

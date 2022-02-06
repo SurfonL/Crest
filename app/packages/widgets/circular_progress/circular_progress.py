@@ -32,7 +32,7 @@ class CircularProgress(QWidget):
         # Text
         self.enable_text = True
         self.font_family = "Segoe UI"
-        self.font_size = 50
+        self.font_size = 40
         self.suffix = "%"
         self.text_color = 0xffffff
         # BG
@@ -151,6 +151,8 @@ class CircularProgress(QWidget):
             self._status = TimerStatus.init
             self.showTime()
 
+        self.timer.stop()
+
 
     def _countdown_and_show(self):
         self._left_seconds -= 1
@@ -215,31 +217,16 @@ class CircularProgress(QWidget):
 
     def on_top_event(self):
         if not self.page.isActiveWindow():
-            # from pywin32 import SetWindowPos
-            # import win32con
-            #
-            # SetWindowPos(self.page.winId(),
-            #              win32con.HWND_TOPMOST,
-            #              # = always on top. only reliable way to bring it to the front on windows
-            #              0, 0, 0, 0,
-            #              win32con.SWP_NOMOVE | win32con.SWP_NOSIZE | win32con.SWP_SHOWWINDOW)
-            # SetWindowPos(self.page.winId(),
-            #              win32con.HWND_NOTOPMOST,  # disable the always on top, but leave window at its top position
-            #              0, 0, 0, 0,
-            #              win32con.SWP_NOMOVE | win32con.SWP_NOSIZE | win32con.SWP_SHOWWINDOW)
-            # self.page.raise_()
-            # self.page.show()
-            # self.page.activateWindow()
-
-
             self.page.pomodoro_button.clicked.connect(lambda: self.page.ui.bg_app.setCurrentWidget(self.page.ui.pomodoro_appPage2))
             self.page.maximize_minimize()
             self.page.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
             self.page.show()
             self.page.setWindowFlags(Qt.FramelessWindowHint)
             self.page.show()
-            self.page.setFocus()
-            self.page.activateWindow()
+
+            self.page.setWindowState(self.page.windowState() & ~Qt.WindowMinimized | Qt.WindowActive)
+            # self.page.activateWindow()
+            # self.page.setFocus()
 
 
 
