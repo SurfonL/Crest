@@ -14,19 +14,45 @@ class Record:
         if not os.path.exists(file_dir):
             print("file does not exists. create one.")
             self.create_excel()
-        else:
-            self.df = pd.read_excel(file_dir)
-            self._initiate()
-            print(self.df)
+        self.pomo = np.nan
+        self.task = np.nan
+        self.duration = np.nan
+        self.state = 0
 
 
-    def _initiate(self, pomo, task):
+
+    def start_record(self):
+
+        print(self.pomo, 'starts recording')
+
         today = pd.to_datetime('today').replace(hour=0, minute=0, second=0, microsecond=0)
         start = pd.to_datetime('today').time().replace(microsecond=0)
 
-        self.row = [today,np.nan, np.nan, start, np.nan]
+        self.row = [today, self.pomo, np.nan, start, np.nan]
+        self.state = 1
 
+    def end_record(self):
+        print(self.pomo, 'stops recording')
 
+        hour = self.duration // 3600
+        minutes = (self.duration - hour * 3600) // 60
+        seconds = self.duration - hour * 3600 - (minutes * 60)
+        time_string = "{:02}:{:02}:{:02}".format(int(hour), int(minutes), int(seconds))
+
+        self.row[2] = self.task
+        self.row[4] = pd.to_datetime(time_string).time()
+
+        self.state = 0
+
+    def save_record(self):
+        self.df = pd.read_excel(file_dir)
+        row = pd.DataFrame([self.row],columns=columns)
+        self.df = pd.concat((row,self.df), ignore_index=True)
+
+        self.df.to_excel(file_dir, index=False)
+
+        self.row = [np.nan, np.nan, np.nan, np.nan, np.nan]
+        print(self.df)
 
 
     def create_excel(self, overwrite=False):
@@ -39,16 +65,8 @@ class Record:
 
 
 
-
-
-
-
-
-
-
 if __name__ == '__main__':
     Pomo = Record()
 
-    print(today)
 
 

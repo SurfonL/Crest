@@ -127,6 +127,7 @@ class MainWindow(QMainWindow):
         self.pomo_play_btn.clicked.connect(self.hide_show)
 
 
+        #순서를 이렇게 두면 pause 버튼을 누를 때마다 기록됨 ㅇㅅㅇ
         self.pomo_pause_btn.clicked.connect(self.timer._reset_event)
         self.pomo_pause_btn.clicked.connect(self.hide_show)
 
@@ -246,7 +247,7 @@ class MainWindow(QMainWindow):
             self.pomo_pause_btn.original_icon()
             self.pomo_pause_btn.show()
 
-        elif self.timer._status == 3 :
+        elif self.timer._status == 3:
             self.pomo_play_btn.show()
             self.pomo_pause_btn.stop_icon()
 

@@ -13,8 +13,10 @@
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
-import enum
+from . Record import Record
 
+
+pause_time = 3
 class CircularProgress(QWidget):
     def __init__(self, page):
         QWidget.__init__(self)
@@ -55,9 +57,21 @@ class CircularProgress(QWidget):
         self._left_seconds = self.init_seconds
         self.timer = QTimer()
         self.timer.timeout.connect(self._countdown_and_show)
+        self.pause_timer = QTimer()
+        self.pause_timer.timeout.connect(self.count_pause_time)
+        self.pause_time = 0
         self.showTime()
 
         self.focus_status = FocusStatus.focus
+
+
+
+
+        #Record Things
+        self.pomo_record = Record()
+        self.pause_record = Record()
+        self.pause_record.pomo = 'pause'
+
 
 
     # ADD DROPSHADOW
@@ -126,6 +140,7 @@ class CircularProgress(QWidget):
         paint.end()
 
     def _start_event(self):
+        self.start_record()
         if (self._status == TimerStatus.init or self._status == TimerStatus.paused):
             self._left_seconds -= 1
             self._status = TimerStatus.counting
@@ -135,6 +150,7 @@ class CircularProgress(QWidget):
 
     #called when paus/stop button is pressed
     def _reset_event(self):
+        self.end_record()
         if self._status == TimerStatus.counting:
             self._status = TimerStatus.paused
 
@@ -150,7 +166,6 @@ class CircularProgress(QWidget):
             self._left_seconds = self.init_seconds
             self._status = TimerStatus.init
             self.showTime()
-
         self.timer.stop()
 
 
@@ -186,7 +201,6 @@ class CircularProgress(QWidget):
                 self.init_seconds = self.focus_seconds
                 self._left_seconds = self.focus_seconds
                 self.showTime()
-
 
 
     def rest_edit_event(self,value):
@@ -227,6 +241,54 @@ class CircularProgress(QWidget):
             self.page.setWindowState(self.page.windowState() & ~Qt.WindowMinimized | Qt.WindowActive)
             # self.page.activateWindow()
             # self.page.setFocus()
+
+    def start_record(self):
+        if self.focus_status == FocusStatus.focus:
+            self.pomo_record.pomo = 'focus'
+        elif self.focus_status == FocusStatus.rest:
+            self.pomo_record.pomo = 'rest'
+
+        if self.pomo_record.state == 1 and self._status == TimerStatus.init:
+            self.pomo_record.duration = self.focus_seconds - self._left_seconds
+            self.pomo_record.task = 'something productive'
+            self.pomo_record.end_record()
+            self.pomo_record.save_record()
+
+        if self._status == TimerStatus.init or self.pause_time > pause_time:
+            self.pomo_record.start_record()
+
+
+
+    def end_record(self):
+        global pause_time
+        if self._status == TimerStatus.counting:
+            self.pause_time = 0
+            self.pause_timer.start(1000)
+            self.pause_record.start_record()
+
+    def count_pause_time(self):
+        global pause_time
+
+        if self.pause_time == pause_time:
+            self.pomo_record.duration = self.focus_seconds - self._left_seconds
+            self.pomo_record.task = 'something productive'
+            self.pomo_record.end_record()
+            self.pomo_record.save_record()
+
+        if self._status == TimerStatus.counting:
+            self.pause_timer.stop()
+
+        if self._status == TimerStatus.counting and self.pause_time > pause_time:
+            self.pause_record.task = 'paused for more than' + str(pause_time)
+            self.pause_record.duration = self.pause_time
+            self.pause_record.end_record()
+            self.pause_record.save_record()
+
+        self.pause_time += 1
+        print('pause counting')
+
+
+
 
 
 
