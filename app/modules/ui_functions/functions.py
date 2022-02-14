@@ -122,17 +122,26 @@ class UiFunctions:
                 event.accept()
         self.ui.logo_top.mouseMoveEvent = moveWindow
         self.ui.title_bar.mouseMoveEvent = moveWindow
+        self.ui.pomo_title_bar.mouseMoveEvent = moveWindow
 
         # DOUBLE CLICK MAXIMIZE / RESTORE
         def maximize_restore(event):
             if event.type() == QEvent.MouseButtonDblClick:
                 UiFunctions.maximize_restore(self)
         self.ui.title_bar.mouseDoubleClickEvent = maximize_restore
+        self.ui.pomo_title_bar.mouseDoubleClickEvent = maximize_restore
 
         # TOP BTNS
-        self.ui.minimize_app_btn.clicked.connect(lambda: self.showMinimized())        
+        def minimize_hide():
+            self.showMinimized()
+            self.setWindowFlags(Qt.FramelessWindowHint)
+
+        self.ui.minimize_app_btn.clicked.connect(lambda: minimize_hide())
+        self.ui.minimize_app_btn_2.clicked.connect(lambda: minimize_hide())
         self.ui.maximize_restore_app_btn.clicked.connect(lambda: UiFunctions.maximize_restore(self))
+        self.ui.maximize_restore_app_btn_2.clicked.connect(lambda: UiFunctions.maximize_restore(self))
         self.ui.close_app_btn.clicked.connect(lambda: self.close())
+        self.ui.close_app_btn_2.clicked.connect(lambda: self.close())
         
 
         

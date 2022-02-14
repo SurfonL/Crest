@@ -35,6 +35,8 @@ class Message(QWidget):
         global send_by
         send_by = me_send
 
+        self.msg = message
+
         self.setMinimumHeight(20)
         self.setup_ui()
         self.setFixedHeight(self.layout.sizeHint().height())
@@ -46,6 +48,9 @@ class Message(QWidget):
         date_time = datetime.now()
         date_time_format = date_time.strftime("%m/%d/%Y %H:%M")
         self.data_message.setText(str(date_time_format))
+
+    def get_message(self):
+        return self.msg
 
     def setup_ui(self):
         # LAYOUT

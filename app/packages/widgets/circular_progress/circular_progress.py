@@ -16,7 +16,7 @@ from PySide6.QtWidgets import *
 from . Record import Record
 
 
-pause_time = 3
+pause_time = 3 * 60
 class CircularProgress(QWidget):
     def __init__(self, page):
         QWidget.__init__(self)
@@ -71,6 +71,7 @@ class CircularProgress(QWidget):
         self.pomo_record = Record()
         self.pause_record = Record()
         self.pause_record.pomo = 'pause'
+        self.total_pomo_time = 0
 
 
 
@@ -157,12 +158,14 @@ class CircularProgress(QWidget):
         #Timer is "Stopped"
         elif self._status == TimerStatus.paused and self.focus_status == FocusStatus.focus:
             self.rest_init()
+            self.left_seconds_b = self._left_seconds
             self._left_seconds = self.init_seconds
             self._status = TimerStatus.init
             self.showTime()
 
         elif self._status == TimerStatus.paused and self.focus_status == FocusStatus.rest:
             self.focus_init()
+            self.left_seconds_b = self._left_seconds
             self._left_seconds = self.init_seconds
             self._status = TimerStatus.init
             self.showTime()
@@ -249,10 +252,16 @@ class CircularProgress(QWidget):
             self.pomo_record.pomo = 'rest'
 
         if self.pomo_record.state == 1 and self._status == TimerStatus.init:
-            self.pomo_record.duration = self.focus_seconds - self._left_seconds
-            self.pomo_record.task = 'something productive'
+            t = self.focus_seconds if self.focus_status == FocusStatus.rest else self.rest_seconds
+            self.pomo_record.duration = t - self.left_seconds_b
+            print(self.pomo_record.duration)
+            self.pomo_record.task = 'rest for a bit' if self.pomo_record.pomo == 'focus' else 'something productive'
             self.pomo_record.end_record()
             self.pomo_record.save_record()
+            self.total_pomo_time = 0
+
+        elif self.pomo_record.state == 0 and self._status == TimerStatus.init:
+            self.total_pomo_time = 0
 
         if self._status == TimerStatus.init or self.pause_time > pause_time:
             self.pomo_record.start_record()
@@ -265,13 +274,15 @@ class CircularProgress(QWidget):
             self.pause_time = 0
             self.pause_timer.start(1000)
             self.pause_record.start_record()
+            print('pause counting')
 
     def count_pause_time(self):
         global pause_time
 
         if self.pause_time == pause_time:
-            self.pomo_record.duration = self.focus_seconds - self._left_seconds
+            self.pomo_record.duration = self.init_seconds - self._left_seconds - self.total_pomo_time
             self.pomo_record.task = 'something productive'
+            self.total_pomo_time += self.pomo_record.duration
             self.pomo_record.end_record()
             self.pomo_record.save_record()
 
@@ -279,21 +290,12 @@ class CircularProgress(QWidget):
             self.pause_timer.stop()
 
         if self._status == TimerStatus.counting and self.pause_time > pause_time:
-            self.pause_record.task = 'paused for more than' + str(pause_time)
+            self.pause_record.task = 'paused for more than ' + str(pause_time) + 'seconds'
             self.pause_record.duration = self.pause_time
             self.pause_record.end_record()
             self.pause_record.save_record()
 
         self.pause_time += 1
-        print('pause counting')
-
-
-
-
-
-
-
-
 
 
 

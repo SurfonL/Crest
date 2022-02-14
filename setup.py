@@ -24,10 +24,10 @@ target = Executable(
 
 # SETUP CX FREEZE
 setup(
-    name = "PyBlackBOX",
-    version = "1.0",
-    description = "Modern GUI for desktop chat",
-    author = "Wanderson M. Pimenta",
+    name = "Pomodoro",
+    version = "0.1",
+    description = "A Custom Pomodoro",
+    author = "Woojin Jeon",
     options = {'build_exe' : {'include_files' : files}},
     executables = [target]    
 )

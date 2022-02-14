@@ -34,3 +34,5 @@ from . friend_message_button import FriendMessageButton
 
 # CIRCULAR PROGRESS BAR
 from . circular_progress import CircularProgress
+
+from .SystemTray import SystemTrayIcon

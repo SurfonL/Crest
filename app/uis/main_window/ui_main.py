@@ -13,8 +13,6 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
 from . resources_rc import *
-# -*- coding: utf-8 -*-
-
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -265,6 +263,14 @@ class Ui_MainWindow(object):
         self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.gridLayout.addItem(self.horizontalSpacer_2, 2, 0, 1, 1)
+
+        self.verticalSpacer_4 = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout.addItem(self.verticalSpacer_4, 1, 1, 1, 1)
+
         self.frame_3 = QFrame(self.pomodoro_appPage2)
         self.frame_3.setObjectName(u"frame_3")
         self.frame_3.setMinimumSize(QSize(500, 500))
@@ -278,41 +284,11 @@ class Ui_MainWindow(object):
         self.clock_layout0.setSizeConstraint(QLayout.SetDefaultConstraint)
         self.clock_layout0.setContentsMargins(0, 0, 0, 0)
 
-        self.gridLayout.addWidget(self.frame_3, 1, 1, 1, 1, Qt.AlignHCenter|Qt.AlignVCenter)
-
-        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout.addItem(self.verticalSpacer_3, 4, 1, 1, 1)
-
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.gridLayout.addItem(self.horizontalSpacer_2, 1, 0, 1, 1)
-
-        self.verticalSpacer_4 = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout.addItem(self.verticalSpacer_4, 0, 1, 1, 1)
+        self.gridLayout.addWidget(self.frame_3, 2, 1, 1, 1, Qt.AlignHCenter|Qt.AlignVCenter)
 
         self.verticalSpacer_6 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Fixed)
 
-        self.gridLayout.addItem(self.verticalSpacer_6, 2, 1, 1, 1)
-
-        self.frame_4 = QFrame(self.pomodoro_appPage2)
-        self.frame_4.setObjectName(u"frame_4")
-        self.frame_4.setMinimumSize(QSize(0, 60))
-        self.frame_4.setStyleSheet(u"background: None")
-        self.frame_4.setFrameShape(QFrame.StyledPanel)
-        self.frame_4.setFrameShadow(QFrame.Raised)
-        self.buttons_layout = QHBoxLayout(self.frame_4)
-        self.buttons_layout.setSpacing(0)
-        self.buttons_layout.setObjectName(u"buttons_layout")
-        self.buttons_layout.setContentsMargins(0, 0, 0, 0)
-        self.pomo_buttons_layout = QHBoxLayout()
-        self.pomo_buttons_layout.setObjectName(u"pomo_buttons_layout")
-
-        self.buttons_layout.addLayout(self.pomo_buttons_layout)
-
-
-        self.gridLayout.addWidget(self.frame_4, 3, 1, 1, 1)
+        self.gridLayout.addItem(self.verticalSpacer_6, 3, 1, 1, 1)
 
         self.frame = QFrame(self.pomodoro_appPage2)
         self.frame.setObjectName(u"frame")
@@ -321,50 +297,11 @@ class Ui_MainWindow(object):
         self.frame.setFrameShadow(QFrame.Raised)
         self.gridLayout_2 = QGridLayout(self.frame)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
+        self.gridLayout_2.setVerticalSpacing(0)
+        self.gridLayout_2.setContentsMargins(0, 0, 9, -1)
         self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.gridLayout_2.addItem(self.horizontalSpacer_4, 0, 0, 1, 1)
-
-        self.frame_2 = QFrame(self.frame)
-        self.frame_2.setObjectName(u"frame_2")
-        self.frame_2.setMinimumSize(QSize(45, 45))
-        self.frame_2.setFrameShape(QFrame.StyledPanel)
-        self.frame_2.setFrameShadow(QFrame.Raised)
-        self.pomo_home = QVBoxLayout(self.frame_2)
-        self.pomo_home.setSpacing(0)
-        self.pomo_home.setObjectName(u"pomo_home")
-        self.pomo_home.setContentsMargins(0, 0, 0, 0)
-
-        self.gridLayout_2.addWidget(self.frame_2, 0, 1, 1, 1)
-
-        self.verticalSpacer_5 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout_2.addItem(self.verticalSpacer_5, 3, 1, 1, 1)
-
-        self.frame_8 = QFrame(self.frame)
-        self.frame_8.setObjectName(u"frame_8")
-        self.frame_8.setMinimumSize(QSize(45, 20))
-        self.frame_8.setMaximumSize(QSize(45, 20))
-        self.frame_8.setFrameShape(QFrame.StyledPanel)
-        self.frame_8.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_2 = QHBoxLayout(self.frame_8)
-        self.horizontalLayout_2.setSpacing(0)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.focus_edit = QLineEdit(self.frame_8)
-        self.focus_edit.setObjectName(u"focus_edit")
-        self.focus_edit.setCursor(QCursor(Qt.ArrowCursor))
-        self.focus_edit.setMouseTracking(False)
-        self.focus_edit.setStyleSheet(u"background: rgba(255,255,255,0)")
-        self.focus_edit.setMaxLength(2)
-        self.focus_edit.setFrame(False)
-        self.focus_edit.setAlignment(Qt.AlignCenter)
-        self.focus_edit.setClearButtonEnabled(False)
-
-        self.horizontalLayout_2.addWidget(self.focus_edit)
-
-
-        self.gridLayout_2.addWidget(self.frame_8, 1, 1, 1, 1)
 
         self.frame_9 = QFrame(self.frame)
         self.frame_9.setObjectName(u"frame_9")
@@ -397,8 +334,208 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.frame_9, 2, 1, 1, 1)
 
+        self.verticalSpacer_5 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        self.gridLayout.addWidget(self.frame, 0, 2, 2, 1)
+        self.gridLayout_2.addItem(self.verticalSpacer_5, 3, 1, 1, 1)
+
+        self.frame_8 = QFrame(self.frame)
+        self.frame_8.setObjectName(u"frame_8")
+        self.frame_8.setMinimumSize(QSize(45, 20))
+        self.frame_8.setMaximumSize(QSize(45, 20))
+        self.frame_8.setFrameShape(QFrame.StyledPanel)
+        self.frame_8.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_2 = QHBoxLayout(self.frame_8)
+        self.horizontalLayout_2.setSpacing(0)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.focus_edit = QLineEdit(self.frame_8)
+        self.focus_edit.setObjectName(u"focus_edit")
+        self.focus_edit.setCursor(QCursor(Qt.ArrowCursor))
+        self.focus_edit.setMouseTracking(False)
+        self.focus_edit.setStyleSheet(u"background: rgba(255,255,255,0)")
+        self.focus_edit.setMaxLength(2)
+        self.focus_edit.setFrame(False)
+        self.focus_edit.setAlignment(Qt.AlignCenter)
+        self.focus_edit.setClearButtonEnabled(False)
+
+        self.horizontalLayout_2.addWidget(self.focus_edit)
+
+
+        self.gridLayout_2.addWidget(self.frame_8, 1, 1, 1, 1)
+
+        self.frame_2 = QFrame(self.frame)
+        self.frame_2.setObjectName(u"frame_2")
+        self.frame_2.setMinimumSize(QSize(45, 45))
+        self.frame_2.setFrameShape(QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QFrame.Raised)
+        self.pomo_home = QVBoxLayout(self.frame_2)
+        self.pomo_home.setSpacing(0)
+        self.pomo_home.setObjectName(u"pomo_home")
+        self.pomo_home.setContentsMargins(0, 0, 0, 0)
+
+        self.gridLayout_2.addWidget(self.frame_2, 0, 1, 1, 1)
+
+
+        self.gridLayout.addWidget(self.frame, 1, 2, 2, 1)
+
+        self.frame_4 = QFrame(self.pomodoro_appPage2)
+        self.frame_4.setObjectName(u"frame_4")
+        self.frame_4.setMinimumSize(QSize(0, 60))
+        self.frame_4.setStyleSheet(u"background: None")
+        self.frame_4.setFrameShape(QFrame.StyledPanel)
+        self.frame_4.setFrameShadow(QFrame.Raised)
+        self.buttons_layout = QHBoxLayout(self.frame_4)
+        self.buttons_layout.setSpacing(0)
+        self.buttons_layout.setObjectName(u"buttons_layout")
+        self.buttons_layout.setContentsMargins(0, 0, 0, 0)
+        self.pomo_buttons_layout = QHBoxLayout()
+        self.pomo_buttons_layout.setObjectName(u"pomo_buttons_layout")
+
+        self.buttons_layout.addLayout(self.pomo_buttons_layout)
+
+
+        self.gridLayout.addWidget(self.frame_4, 4, 1, 1, 1)
+
+        self.pomo_title_bar = QFrame(self.pomodoro_appPage2)
+        self.pomo_title_bar.setObjectName(u"pomo_title_bar")
+        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pomo_title_bar.sizePolicy().hasHeightForWidth())
+        self.pomo_title_bar.setSizePolicy(sizePolicy)
+        self.pomo_title_bar.setMinimumSize(QSize(0, 45))
+        self.pomo_title_bar.setStyleSheet(u"background-color: rgba(255, 255, 255, 0);")
+        self.pomo_title_bar.setFrameShape(QFrame.StyledPanel)
+        self.pomo_title_bar.setFrameShadow(QFrame.Raised)
+        self.pomo_title_bar.setLineWidth(0)
+        self.horizontalLayout_5 = QHBoxLayout(self.pomo_title_bar)
+        self.horizontalLayout_5.setSpacing(4)
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.horizontalLayout_5.setSizeConstraint(QLayout.SetDefaultConstraint)
+        self.horizontalLayout_5.setContentsMargins(0, 0, -1, 0)
+        self.horizontalSpacer_5 = QSpacerItem(3000, 20, QSizePolicy.Maximum, QSizePolicy.Minimum)
+
+        self.horizontalLayout_5.addItem(self.horizontalSpacer_5)
+
+        self.top_btns_2 = QFrame(self.pomo_title_bar)
+        self.top_btns_2.setObjectName(u"top_btns_2")
+        self.top_btns_2.setEnabled(True)
+        sizePolicy.setHeightForWidth(self.top_btns_2.sizePolicy().hasHeightForWidth())
+        self.top_btns_2.setSizePolicy(sizePolicy)
+        self.top_btns_2.setMaximumSize(QSize(100, 16777215))
+        self.top_btns_2.setStyleSheet(u"background-color: rgba(255, 255, 255, 0);")
+        self.top_btns_2.setFrameShape(QFrame.NoFrame)
+        self.top_btns_2.setFrameShadow(QFrame.Raised)
+        self.top_btns_2.setLineWidth(0)
+        self.top_btn_layout_2 = QHBoxLayout(self.top_btns_2)
+        self.top_btn_layout_2.setSpacing(4)
+        self.top_btn_layout_2.setObjectName(u"top_btn_layout_2")
+        self.top_btn_layout_2.setContentsMargins(0, 0, 0, 0)
+        self.minimize_app_btn_2 = QPushButton(self.top_btns_2)
+        self.minimize_app_btn_2.setObjectName(u"minimize_app_btn_2")
+        self.minimize_app_btn_2.setMinimumSize(QSize(28, 28))
+        self.minimize_app_btn_2.setMaximumSize(QSize(28, 28))
+        palette = QPalette()
+        brush = QBrush(QColor(230, 230, 230, 255))
+        brush.setStyle(Qt.SolidPattern)
+        palette.setBrush(QPalette.Active, QPalette.WindowText, brush)
+        brush1 = QBrush(QColor(255, 255, 255, 0))
+        brush1.setStyle(Qt.SolidPattern)
+        palette.setBrush(QPalette.Active, QPalette.Button, brush1)
+        palette.setBrush(QPalette.Active, QPalette.Text, brush)
+        palette.setBrush(QPalette.Active, QPalette.ButtonText, brush)
+        palette.setBrush(QPalette.Active, QPalette.Base, brush1)
+        palette.setBrush(QPalette.Active, QPalette.Window, brush1)
+        brush2 = QBrush(QColor(86, 115, 0, 255))
+        brush2.setStyle(Qt.SolidPattern)
+        palette.setBrush(QPalette.Active, QPalette.Highlight, brush2)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        palette.setBrush(QPalette.Active, QPalette.PlaceholderText, brush)
+#endif
+        palette.setBrush(QPalette.Inactive, QPalette.WindowText, brush)
+        palette.setBrush(QPalette.Inactive, QPalette.Button, brush1)
+        palette.setBrush(QPalette.Inactive, QPalette.Text, brush)
+        palette.setBrush(QPalette.Inactive, QPalette.ButtonText, brush)
+        palette.setBrush(QPalette.Inactive, QPalette.Base, brush1)
+        palette.setBrush(QPalette.Inactive, QPalette.Window, brush1)
+        palette.setBrush(QPalette.Inactive, QPalette.Highlight, brush2)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        palette.setBrush(QPalette.Inactive, QPalette.PlaceholderText, brush)
+#endif
+        palette.setBrush(QPalette.Disabled, QPalette.WindowText, brush)
+        palette.setBrush(QPalette.Disabled, QPalette.Button, brush1)
+        palette.setBrush(QPalette.Disabled, QPalette.Text, brush)
+        palette.setBrush(QPalette.Disabled, QPalette.ButtonText, brush)
+        palette.setBrush(QPalette.Disabled, QPalette.Base, brush1)
+        palette.setBrush(QPalette.Disabled, QPalette.Window, brush1)
+        palette.setBrush(QPalette.Disabled, QPalette.Highlight, brush2)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        palette.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush)
+#endif
+        self.minimize_app_btn_2.setPalette(palette)
+        font1 = QFont()
+        font1.setPointSize(9)
+        font1.setBold(False)
+        font1.setItalic(False)
+        font1.setStyleStrategy(QFont.NoAntialias)
+        self.minimize_app_btn_2.setFont(font1)
+        self.minimize_app_btn_2.setCursor(QCursor(Qt.PointingHandCursor))
+        self.minimize_app_btn_2.setStyleSheet(u"")
+        icon = QIcon()
+        icon.addFile(u":/icons_svg/images/icons_svg/icon_minimize.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.minimize_app_btn_2.setIcon(icon)
+        self.minimize_app_btn_2.setIconSize(QSize(10, 10))
+
+        self.top_btn_layout_2.addWidget(self.minimize_app_btn_2)
+
+        self.maximize_restore_app_btn_2 = QPushButton(self.top_btns_2)
+        self.maximize_restore_app_btn_2.setObjectName(u"maximize_restore_app_btn_2")
+        self.maximize_restore_app_btn_2.setMinimumSize(QSize(28, 28))
+        self.maximize_restore_app_btn_2.setMaximumSize(QSize(28, 28))
+        font2 = QFont()
+        font2.setPointSize(9)
+        font2.setBold(False)
+        font2.setItalic(False)
+        font2.setStyleStrategy(QFont.PreferDefault)
+        self.maximize_restore_app_btn_2.setFont(font2)
+        self.maximize_restore_app_btn_2.setCursor(QCursor(Qt.PointingHandCursor))
+        self.maximize_restore_app_btn_2.setStyleSheet(u"")
+        icon1 = QIcon()
+        icon1.addFile(u":/icons_svg/images/icons_svg/icon_maximize.svg", QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(u":/icons_svg/images/icons_svg/icon_restore.svg", QSize(), QIcon.Normal, QIcon.On)
+        self.maximize_restore_app_btn_2.setIcon(icon1)
+        self.maximize_restore_app_btn_2.setIconSize(QSize(10, 10))
+        self.maximize_restore_app_btn_2.setCheckable(False)
+        self.maximize_restore_app_btn_2.setChecked(False)
+
+        self.top_btn_layout_2.addWidget(self.maximize_restore_app_btn_2)
+
+        self.close_app_btn_2 = QPushButton(self.top_btns_2)
+        self.close_app_btn_2.setObjectName(u"close_app_btn_2")
+        self.close_app_btn_2.setMinimumSize(QSize(28, 28))
+        self.close_app_btn_2.setMaximumSize(QSize(28, 28))
+        self.close_app_btn_2.setCursor(QCursor(Qt.PointingHandCursor))
+        self.close_app_btn_2.setStyleSheet(u"")
+        icon2 = QIcon()
+        icon2.addFile(u":/icons_svg/images/icons_svg/icon_close.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.close_app_btn_2.setIcon(icon2)
+        self.close_app_btn_2.setIconSize(QSize(10, 10))
+
+        self.top_btn_layout_2.addWidget(self.close_app_btn_2)
+
+        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.top_btn_layout_2.addItem(self.horizontalSpacer_3)
+
+
+        self.horizontalLayout_5.addWidget(self.top_btns_2)
+
+
+        self.gridLayout.addWidget(self.pomo_title_bar, 0, 0, 1, 3, Qt.AlignRight)
+
+        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.gridLayout.addItem(self.verticalSpacer_3, 5, 1, 1, 1)
 
         self.bg_app.addWidget(self.pomodoro_appPage2)
         self.psd_appPage0 = QWidget()
@@ -514,12 +651,12 @@ class Ui_MainWindow(object):
 
         self.right_content = QFrame(self.bg_appPage1)
         self.right_content.setObjectName(u"right_content")
-        font1 = QFont()
-        font1.setPointSize(9)
-        font1.setBold(False)
-        font1.setItalic(False)
-        font1.setStyleStrategy(QFont.PreferAntialias)
-        self.right_content.setFont(font1)
+        font3 = QFont()
+        font3.setPointSize(9)
+        font3.setBold(False)
+        font3.setItalic(False)
+        font3.setStyleStrategy(QFont.PreferAntialias)
+        self.right_content.setFont(font3)
         self.right_content.setFrameShape(QFrame.NoFrame)
         self.right_content.setFrameShadow(QFrame.Raised)
         self.right_content.setLineWidth(0)
@@ -540,6 +677,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.title_bar = QLabel(self.top_bar)
         self.title_bar.setObjectName(u"title_bar")
+        self.title_bar.setStyleSheet(u"ba")
         self.title_bar.setLineWidth(0)
 
         self.horizontalLayout.addWidget(self.title_bar)
@@ -558,12 +696,30 @@ class Ui_MainWindow(object):
         self.minimize_app_btn.setObjectName(u"minimize_app_btn")
         self.minimize_app_btn.setMinimumSize(QSize(28, 28))
         self.minimize_app_btn.setMaximumSize(QSize(28, 28))
-        font2 = QFont()
-        font2.setPointSize(9)
-        font2.setBold(False)
-        font2.setItalic(False)
-        font2.setStyleStrategy(QFont.NoAntialias)
-        self.minimize_app_btn.setFont(font2)
+        palette1 = QPalette()
+        palette1.setBrush(QPalette.Active, QPalette.WindowText, brush)
+        palette1.setBrush(QPalette.Active, QPalette.Text, brush)
+        palette1.setBrush(QPalette.Active, QPalette.ButtonText, brush)
+        palette1.setBrush(QPalette.Active, QPalette.Highlight, brush2)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        palette1.setBrush(QPalette.Active, QPalette.PlaceholderText, brush)
+#endif
+        palette1.setBrush(QPalette.Inactive, QPalette.WindowText, brush)
+        palette1.setBrush(QPalette.Inactive, QPalette.Text, brush)
+        palette1.setBrush(QPalette.Inactive, QPalette.ButtonText, brush)
+        palette1.setBrush(QPalette.Inactive, QPalette.Highlight, brush2)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        palette1.setBrush(QPalette.Inactive, QPalette.PlaceholderText, brush)
+#endif
+        palette1.setBrush(QPalette.Disabled, QPalette.WindowText, brush)
+        palette1.setBrush(QPalette.Disabled, QPalette.Text, brush)
+        palette1.setBrush(QPalette.Disabled, QPalette.ButtonText, brush)
+        palette1.setBrush(QPalette.Disabled, QPalette.Highlight, brush2)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        palette1.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush)
+#endif
+        self.minimize_app_btn.setPalette(palette1)
+        self.minimize_app_btn.setFont(font1)
         self.minimize_app_btn.setCursor(QCursor(Qt.PointingHandCursor))
         self.minimize_app_btn.setStyleSheet(u"background-image: url(:/icons_svg/images/icons_svg/icon_minimize.svg);")
         self.minimize_app_btn.setIconSize(QSize(20, 20))
@@ -574,12 +730,7 @@ class Ui_MainWindow(object):
         self.maximize_restore_app_btn.setObjectName(u"maximize_restore_app_btn")
         self.maximize_restore_app_btn.setMinimumSize(QSize(28, 28))
         self.maximize_restore_app_btn.setMaximumSize(QSize(28, 28))
-        font3 = QFont()
-        font3.setPointSize(9)
-        font3.setBold(False)
-        font3.setItalic(False)
-        font3.setStyleStrategy(QFont.PreferDefault)
-        self.maximize_restore_app_btn.setFont(font3)
+        self.maximize_restore_app_btn.setFont(font2)
         self.maximize_restore_app_btn.setCursor(QCursor(Qt.PointingHandCursor))
         self.maximize_restore_app_btn.setStyleSheet(u"background-image: url(:/icons_svg/images/icons_svg/icon_maximize.svg);")
         self.maximize_restore_app_btn.setIconSize(QSize(20, 20))
@@ -659,10 +810,22 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.focus_edit.setInputMask("")
-        self.focus_edit.setText(QCoreApplication.translate("MainWindow", u"25", None))
         self.rest_edit.setInputMask("")
         self.rest_edit.setText(QCoreApplication.translate("MainWindow", u"5", None))
+        self.focus_edit.setInputMask("")
+        self.focus_edit.setText(QCoreApplication.translate("MainWindow", u"25", None))
+#if QT_CONFIG(tooltip)
+        self.minimize_app_btn_2.setToolTip(QCoreApplication.translate("MainWindow", u"Minimize", None))
+#endif // QT_CONFIG(tooltip)
+        self.minimize_app_btn_2.setText("")
+#if QT_CONFIG(tooltip)
+        self.maximize_restore_app_btn_2.setToolTip(QCoreApplication.translate("MainWindow", u"Maximize", None))
+#endif // QT_CONFIG(tooltip)
+        self.maximize_restore_app_btn_2.setText("")
+#if QT_CONFIG(tooltip)
+        self.close_app_btn_2.setToolTip(QCoreApplication.translate("MainWindow", u"Close", None))
+#endif // QT_CONFIG(tooltip)
+        self.close_app_btn_2.setText("")
         self.password.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Who are you?", None))
         self.title_bar.setText("")
 #if QT_CONFIG(tooltip)

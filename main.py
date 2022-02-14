@@ -43,6 +43,7 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
 
+
         # SET DEFAULT PAGE
         # ///////////////////////////////////////////////////////////////
 
@@ -52,11 +53,12 @@ class MainWindow(QMainWindow):
         # LOAD DICT SETTINGS FROM "settings.json" FILE
         # ///////////////////////////////////////////////////////////////
         self.settings = Settings()
-        
+
         ######################
         #variables init
         self.is_maximized = False
-        
+
+
         
         # 로그인 페이지에서 엔터 누르면 넘어감
         self.ui.password.keyReleaseEvent = self.check_login
@@ -156,12 +158,15 @@ class MainWindow(QMainWindow):
         # ///////////////////////////////////////////////////////////////
 
         # self.maximize_minimize()
-        self.setWindowFlags(Qt.FramelessWindowHint)
+
 
 
         # SHOW MAIN WINDOW
         # ///////////////////////////////////////////////////////////////
-        self.show()
+
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.showNormal()
+
 
     def check_login(self, event):
         if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
@@ -203,8 +208,16 @@ class MainWindow(QMainWindow):
             self.maximize_minimize()
             # self.ui.app_pages.setCurrentWidget(self.ui.pomodoro_appPage2)
 
-    # def closeEvent(self, event):
-    #         event.ignore()
+    def closeEvent(self, event):
+        if self.timer.pomo_record.state == 1:
+            self.timer.pomo_record.duration = self.timer.init_seconds - self.timer._left_seconds
+            self.timer.pomo_record.end_record()
+            self.timer.pomo_record.save_record()
+        if self.timer.pause_record.state == 1:
+            self.timer.pause_record.duration = self.timer.pause_time
+            self.timer.pause_record.end_record()
+            self.timer.pause_record.save_record()
+        # event.ignore()
 
     def maximize_minimize(self):
 
@@ -257,12 +270,6 @@ class MainWindow(QMainWindow):
             self.pomo_pause_btn.original_icon()
 
 
-
-
-
-
-
-
 # SETTINGS WHEN TO START
 # Set the initial class and also additional parameters of the "QApplication" class
 # ///////////////////////////////////////////////////////////////
@@ -271,4 +278,7 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setWindowIcon(QIcon("icon.ico"))
     window = MainWindow()
+
+    tray_icon = SystemTrayIcon(QIcon("icon.ico"),window)
+    tray_icon.show()
     sys.exit(app.exec_())
