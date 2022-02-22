@@ -16,7 +16,7 @@ from PySide6.QtWidgets import *
 from . Record import Record
 
 
-pause_time = 3 * 60
+pause_limit = 5
 class CircularProgress(QWidget):
     def __init__(self, page):
         QWidget.__init__(self)
@@ -54,12 +54,15 @@ class CircularProgress(QWidget):
         seconds = self.init_seconds - (minutes * 60)
         self.time_string = "{:02}:{:02}".format(int(minutes), int(seconds))
         self._status = TimerStatus.init
+        self._status_b = TimerStatus.init
         self._left_seconds = self.init_seconds
         self.timer = QTimer()
         self.timer.timeout.connect(self._countdown_and_show)
+
         self.pause_timer = QTimer()
         self.pause_timer.timeout.connect(self.count_pause_time)
         self.pause_time = 0
+        self.pt = False
         self.showTime()
 
         self.focus_status = FocusStatus.focus
@@ -69,8 +72,6 @@ class CircularProgress(QWidget):
 
         #Record Things
         self.pomo_record = Record()
-        self.pause_record = Record()
-        self.pause_record.pomo = 'pause'
         self.total_pomo_time = 0
 
 
@@ -141,36 +142,49 @@ class CircularProgress(QWidget):
         paint.end()
 
     def _start_event(self):
-        self.start_record()
-        if (self._status == TimerStatus.init or self._status == TimerStatus.paused):
-            self._left_seconds -= 1
-            self._status = TimerStatus.counting
-            self.showTime()
-            self.timer.start(1000)
+        self._status_b = self._status
+        self._status = TimerStatus.counting
+        self._left_seconds -= 1
+        self.showTime()
+        self.timer.start(1000)
+
+        # init 이면 time stamp start
+        if self._status_b == TimerStatus.init:
+            self.start_record()
+
+        # paused 면 time stamp X
+        elif self._status_b == TimerStatus.paused:
+            self.pause_timer.stop()
+            self.pause_time = 0
+
+
 
 
     #called when paus/stop button is pressed
     def _reset_event(self):
-        self.end_record()
+        self.timer.stop()
         if self._status == TimerStatus.counting:
+            self._status_b = self._status
             self._status = TimerStatus.paused
 
-        #Timer is "Stopped"
-        elif self._status == TimerStatus.paused and self.focus_status == FocusStatus.focus:
-            self.rest_init()
-            self.left_seconds_b = self._left_seconds
-            self._left_seconds = self.init_seconds
-            self._status = TimerStatus.init
-            self.showTime()
+            self.pause_time = 0
+            self.pause_timer.start(1000)
 
-        elif self._status == TimerStatus.paused and self.focus_status == FocusStatus.rest:
-            self.focus_init()
-            self.left_seconds_b = self._left_seconds
-            self._left_seconds = self.init_seconds
-            self._status = TimerStatus.init
-            self.showTime()
-        self.timer.stop()
+        elif self._status == TimerStatus.paused:
+            self.pause_timer.stop()
+            self.pause_time = 0
 
+            self._status_b = self._status
+            self._status = TimerStatus.init
+            #status를 focus->rest, rest->focus로 바꿈
+            self.focus_status = FocusStatus.rest if self.focus_status == FocusStatus.focus else FocusStatus.focus
+
+            #status가 init일 때 실행.
+            self.pomo_init()
+
+            sb = pause_limit if self.pt else 0
+            self.pomo_record.end_record(subtract_sec=sb)
+            self.pomo_record.save_record()
 
     def _countdown_and_show(self):
         self._left_seconds -= 1
@@ -217,19 +231,21 @@ class CircularProgress(QWidget):
                 self.showTime()
 
 
-    def rest_init(self):
-        self.focus_status = FocusStatus.rest
-        self.init_seconds = self.rest_seconds
-        self.page.ui.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
+    def pomo_init(self):
+        if self.focus_status == FocusStatus.rest:
+            self.init_seconds = self.rest_seconds
+            self._left_seconds = self.init_seconds
+            self.page.ui.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
                                                   "stop:0 rgba(8, 126, 225,1), stop: 1 rgba(5, 232, 186,1))\n"
                                                   "")
-
-    def focus_init(self):
-        self.focus_status = FocusStatus.focus
-        self.init_seconds = self.focus_seconds
-        self.page.ui.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
-                                             "stop:0 rgba(152, 222, 91,1), stop: 1 rgba(8, 225, 174,1))\n"
-                                             "")
+            self.showTime()
+        elif self.focus_status == FocusStatus.focus:
+            self.init_seconds = self.focus_seconds
+            self.page.ui.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
+                                                 "stop:0 rgba(152, 222, 91,1), stop: 1 rgba(8, 225, 174,1))\n"
+                                                 "")
+            self._left_seconds = self.init_seconds
+            self.showTime()
 
 
     def on_top_event(self):
@@ -246,56 +262,21 @@ class CircularProgress(QWidget):
             # self.page.setFocus()
 
     def start_record(self):
-        if self.focus_status == FocusStatus.focus:
-            self.pomo_record.pomo = 'focus'
-        elif self.focus_status == FocusStatus.rest:
-            self.pomo_record.pomo = 'rest'
-
-        if self.pomo_record.state == 1 and self._status == TimerStatus.init:
-            t = self.focus_seconds if self.focus_status == FocusStatus.rest else self.rest_seconds
-            self.pomo_record.duration = t - self.left_seconds_b
-            print(self.pomo_record.duration)
-            self.pomo_record.task = 'rest for a bit' if self.pomo_record.pomo == 'focus' else 'something productive'
-            self.pomo_record.end_record()
-            self.pomo_record.save_record()
-            self.total_pomo_time = 0
-
-        elif self.pomo_record.state == 0 and self._status == TimerStatus.init:
-            self.total_pomo_time = 0
-
-        if self._status == TimerStatus.init or self.pause_time > pause_time:
-            self.pomo_record.start_record()
-
-
-
-    def end_record(self):
-        global pause_time
-        if self._status == TimerStatus.counting:
-            self.pause_time = 0
-            self.pause_timer.start(1000)
-            self.pause_record.start_record()
-            print('pause counting')
+        self.pomo_record.start_record(self.focus_status)
 
     def count_pause_time(self):
-        global pause_time
-
-        if self.pause_time == pause_time:
-            self.pomo_record.duration = self.init_seconds - self._left_seconds - self.total_pomo_time
-            self.pomo_record.task = 'something productive'
-            self.total_pomo_time += self.pomo_record.duration
-            self.pomo_record.end_record()
-            self.pomo_record.save_record()
-
-        if self._status == TimerStatus.counting:
-            self.pause_timer.stop()
-
-        if self._status == TimerStatus.counting and self.pause_time > pause_time:
-            self.pause_record.task = 'paused for more than ' + str(pause_time) + 'seconds'
-            self.pause_record.duration = self.pause_time
-            self.pause_record.end_record()
-            self.pause_record.save_record()
-
         self.pause_time += 1
+        print(self.pause_time)
+
+        if self.pause_time == pause_limit:
+            self.pause_timer.stop()
+            self.pt=True
+            self._reset_event()
+            self.page.hide_show()
+            self.pt = False
+
+
+
 
 
 

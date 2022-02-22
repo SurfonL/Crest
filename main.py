@@ -213,10 +213,7 @@ class MainWindow(QMainWindow):
             self.timer.pomo_record.duration = self.timer.init_seconds - self.timer._left_seconds
             self.timer.pomo_record.end_record()
             self.timer.pomo_record.save_record()
-        if self.timer.pause_record.state == 1:
-            self.timer.pause_record.duration = self.timer.pause_time
-            self.timer.pause_record.end_record()
-            self.timer.pause_record.save_record()
+
         # event.ignore()
 
     def maximize_minimize(self):
@@ -255,6 +252,7 @@ class MainWindow(QMainWindow):
             self.timer.rest_edit_event(value)
 
     def hide_show(self):
+        #init, count, pause
         if self.timer._status == 2:
             self.pomo_play_btn.hide()
             self.pomo_pause_btn.original_icon()
