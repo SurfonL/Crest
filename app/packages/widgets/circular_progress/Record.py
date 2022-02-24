@@ -18,38 +18,40 @@ class Record:
             self.create_csv()
 
         self.pomo = np.nan
-        self.task = np.nan
+        self.task = ""
         self.duration = np.nan
-        self.state = 0
+        self.recording = False
 
 
-
-    def start_record(self, pomo, subtract_sec = 0):
+    def start_record(self, pomo):
         if pomo == 1:
             pomo = 'focus'
+            print(pomo, 'starts recording')
+
+            start = pd.to_datetime('today').replace(microsecond=0)
+            self.row = [start, np.nan, pomo, np.nan]
+
+            self.recording = True
         elif pomo == 2:
             pomo = 'rest'
-        print(pomo, 'starts recording')
 
-        start = pd.to_datetime('today').replace(microsecond=0)
-        start = start - datetime.timedelta(seconds=subtract_sec)
-        self.row = [start, np.nan, pomo, np.nan]
-
-        self.state = 1
 
     def end_record(self, subtract_sec = 0):
-        print('stops recording')
+        if self.recording == True:
+            print('stops recording')
 
-        end = pd.to_datetime('today').replace(microsecond=0)
-        #subtract seconds
+            end = pd.to_datetime('today').replace(microsecond=0)
+            #subtract seconds
 
-        end = end - datetime.timedelta(seconds = subtract_sec)
+            end = end - datetime.timedelta(seconds = subtract_sec)
 
-        self.row[1] = end
+            self.row[1] = end
+            self.row[3] = self.task
 
-        self.state = 0
+            self.recording = False
+            self._save_record()
 
-    def save_record(self):
+    def _save_record(self):
         self.df = pd.read_csv(file_dir)
         row = pd.DataFrame([self.row],columns=columns)
         self.df = pd.concat((row,self.df), ignore_index=True)

@@ -16,7 +16,7 @@ from PySide6.QtWidgets import *
 from . Record import Record
 
 
-pause_limit = 5
+pause_limit = 5 * 60
 class CircularProgress(QWidget):
     def __init__(self, page):
         QWidget.__init__(self)
@@ -67,12 +67,29 @@ class CircularProgress(QWidget):
 
         self.focus_status = FocusStatus.focus
 
-
-
-
         #Record Things
         self.pomo_record = Record()
-        self.total_pomo_time = 0
+
+        ('#98de5b', '#08e1ae')
+
+        #animation test
+        self.c_start_1 = '#98de5b'
+        self.c_end_1= '#98de5b'
+        self.c_start_2 = '#08e1ae'
+        self.c_end_2 = '#08e1ae'
+        self._animation_1 = QVariantAnimation(
+            startValue=QColor(self.c_end_1),
+            endValue=QColor(self.c_start_1),
+            duration=400,
+        )
+        self._animation_2 = QVariantAnimation(
+            startValue=QColor(self.c_end_2),
+            endValue=QColor(self.c_start_2),
+            duration=400,
+        )
+        self._animation_1.valueChanged.connect(self._set_temp_c)
+        self._animation_2.valueChanged.connect(self.set_background)
+
 
 
 
@@ -98,7 +115,7 @@ class CircularProgress(QWidget):
         width = self.width - self.progress_width
         height = self.height - self.progress_width
         margin = self.progress_width / 2
-        percentage = self._left_seconds / self.init_seconds * 100 - 100
+        percentage = self._left_seconds / self.init_seconds * 100 - 100 if self.init_seconds != 0 else 0
 
         value =  percentage* 360 / self.max_value
 
@@ -180,19 +197,20 @@ class CircularProgress(QWidget):
             self.focus_status = FocusStatus.rest if self.focus_status == FocusStatus.focus else FocusStatus.focus
 
             #status가 init일 때 실행.
-            self.pomo_init()
+            if self.focus_status == FocusStatus.rest:
+                self._rest_init()
+            elif self.focus_status == FocusStatus.focus:
+                self._focus_init()
 
             sb = pause_limit if self.pt else 0
             self.pomo_record.end_record(subtract_sec=sb)
-            self.pomo_record.save_record()
 
     def _countdown_and_show(self):
         self._left_seconds -= 1
         self.showTime()
         if self._left_seconds < 0:
-            self.page.ui.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
-                                                 "stop:0 rgba(254,88,88,1), stop: 1 rgba(238,150,23,1))\n"
-                                                 "")
+            if self._left_seconds == -1:
+                self._bg_transition_setter('#fe5858', '#ee9617')
             self.on_top_event()
 
 
@@ -230,28 +248,24 @@ class CircularProgress(QWidget):
                 self._left_seconds = self.rest_seconds
                 self.showTime()
 
+    def _focus_init(self):
+        self.init_seconds = self.focus_seconds
+        self._bg_transition_setter('#98de5b', '#08e1ae')
+        self._left_seconds = self.init_seconds
+        self.showTime()
 
-    def pomo_init(self):
-        if self.focus_status == FocusStatus.rest:
-            self.init_seconds = self.rest_seconds
-            self._left_seconds = self.init_seconds
-            self.page.ui.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
-                                                  "stop:0 rgba(8, 126, 225,1), stop: 1 rgba(5, 232, 186,1))\n"
-                                                  "")
-            self.showTime()
-        elif self.focus_status == FocusStatus.focus:
-            self.init_seconds = self.focus_seconds
-            self.page.ui.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
-                                                 "stop:0 rgba(152, 222, 91,1), stop: 1 rgba(8, 225, 174,1))\n"
-                                                 "")
-            self._left_seconds = self.init_seconds
-            self.showTime()
+    def _rest_init(self):
+        self.init_seconds = self.rest_seconds
+        self._left_seconds = self.init_seconds
+        self._bg_transition_setter('#087ee1', '#05e8ba')
+        self.showTime()
 
 
     def on_top_event(self):
         if not self.page.isActiveWindow():
             self.page.pomodoro_button.clicked.connect(lambda: self.page.ui.bg_app.setCurrentWidget(self.page.ui.pomodoro_appPage2))
-            self.page.maximize_minimize()
+
+            # self.page.maximize_minimize()
             self.page.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
             self.page.show()
             self.page.setWindowFlags(Qt.FramelessWindowHint)
@@ -271,12 +285,33 @@ class CircularProgress(QWidget):
         if self.pause_time == pause_limit:
             self.pause_timer.stop()
             self.pt=True
-            self._reset_event()
+
+            self.pomo_record.end_record(self.pause_time)
+            self._focus_init()
+            self._status = TimerStatus.init
+            self.page.hide_show()
+
             self.page.hide_show()
             self.pt = False
 
+    def _bg_transition_setter(self, end1, end2):
+        self._animation_1.setStartValue(QColor(self.c_start_1))
+        self._animation_2.setStartValue(QColor(self.c_start_2))
 
+        self._animation_1.setEndValue(QColor(end1))
+        self._animation_2.setEndValue(QColor(end2))
 
+        self._animation_1.start()
+        self._animation_2.start()
+
+        self.c_start_1 = end1
+        self.c_start_2 = end2
+    def _set_temp_c(self,color):
+        self._temp_c = color.name()
+    def set_background(self, color):
+        self.page.ui.pomodoro_appPage2.setStyleSheet(u"background: qlineargradient(x1:0, y1:0, x2:1, y2:1,\n"
+                                                     "stop:0 %s, stop: 1 %s)\n" % (self._temp_c, color.name())
+                                                     )
 
 
 

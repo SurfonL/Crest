@@ -64,7 +64,7 @@ class MainWindow(QMainWindow):
         self.ui.password.keyReleaseEvent = self.check_login
         self.ui.app_pages.setCurrentWidget(self.ui.pomodoro_appPage2)
 
-        #왼쪽 바: 아이콘, 세팅 버튼 등: TODO: 오른쪽으로 옮겨
+        #왼쪽 바: 아이콘, 세팅 버튼 등:
         self.chat_button = LeftMenuButton(
             self,
             "custom_btn_top",
@@ -136,6 +136,7 @@ class MainWindow(QMainWindow):
 
         self.ui.focus_edit.keyReleaseEvent = self.set_focus_time
         self.ui.rest_edit.keyReleaseEvent = self.set_rest_time
+        self.ui.taskEdit.keyReleaseEvent = self.set_record_task
 
 
 
@@ -209,10 +210,8 @@ class MainWindow(QMainWindow):
             # self.ui.app_pages.setCurrentWidget(self.ui.pomodoro_appPage2)
 
     def closeEvent(self, event):
-        if self.timer.pomo_record.state == 1:
-            self.timer.pomo_record.duration = self.timer.init_seconds - self.timer._left_seconds
+        if self.timer.pomo_record.recording == True:
             self.timer.pomo_record.end_record()
-            self.timer.pomo_record.save_record()
 
         # event.ignore()
 
@@ -245,12 +244,19 @@ class MainWindow(QMainWindow):
         if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
             value = int(self.ui.focus_edit.text())
             self.timer.focus_edit_event(value)
+            self.ui.focus_edit.clearFocus()
 
     def set_rest_time(self,event):
         if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
             value = int(self.ui.rest_edit.text())
             self.timer.rest_edit_event(value)
+            self.ui.rest_edit.clearFocus()
 
+    def set_record_task(self,event):
+        if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:
+            text = self.ui.taskEdit.text()
+            self.timer.pomo_record.task = text
+            self.ui.taskEdit.clearFocus()
     def hide_show(self):
         #init, count, pause
         if self.timer._status == 2:

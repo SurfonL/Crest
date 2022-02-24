@@ -76,7 +76,8 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         :return:
         """
         if reason == self.DoubleClick:
-            self.w.showNormal()
+            self.w.maximize_minimize()
+            # self.w.showNormal()
 
         # if reason == self.Trigger:
         #     self.open_notepad()
