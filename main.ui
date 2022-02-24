@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
-    <height>826</height>
+    <width>1134</width>
+    <height>816</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -335,6 +335,9 @@ stop:0 rgba(152, 222, 91,1), stop: 1 rgba(8, 225, 174,1))
          <spacer name="verticalSpacer_4">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::MinimumExpanding</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -870,19 +873,6 @@ stop:0 rgba(152, 222, 91,1), stop: 1 rgba(8, 225, 174,1))
           </layout>
          </widget>
         </item>
-        <item row="3" column="2" rowspan="3">
-         <spacer name="verticalSpacer_7">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="3" column="1">
          <spacer name="verticalSpacer_6">
           <property name="orientation">
@@ -894,7 +884,7 @@ stop:0 rgba(152, 222, 91,1), stop: 1 rgba(8, 225, 174,1))
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>40</height>
+            <height>50</height>
            </size>
           </property>
          </spacer>
@@ -1154,16 +1144,25 @@ stop:0 rgba(152, 222, 91,1), stop: 1 rgba(8, 225, 174,1))
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>40</height>
+            <height>200</height>
            </size>
           </property>
          </spacer>
         </item>
         <item row="6" column="2">
          <widget class="QFrame" name="frame_5">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="styleSheet">
            <string notr="true">background: None</string>
           </property>

@@ -19,7 +19,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1200, 826)
+        MainWindow.resize(1134, 816)
         self.stylesheet = QWidget(MainWindow)
         self.stylesheet.setObjectName(u"stylesheet")
         self.stylesheet.setStyleSheet(u"/* DEFAULT */\n"
@@ -279,7 +279,7 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.frame_3, 2, 1, 1, 1, Qt.AlignHCenter|Qt.AlignVCenter)
 
-        self.verticalSpacer_4 = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer_4 = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.MinimumExpanding)
 
         self.gridLayout.addItem(self.verticalSpacer_4, 1, 1, 1, 1)
 
@@ -440,11 +440,7 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.pomo_title_bar, 0, 0, 1, 3, Qt.AlignRight)
 
-        self.verticalSpacer_7 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
-
-        self.gridLayout.addItem(self.verticalSpacer_7, 3, 2, 3, 1)
-
-        self.verticalSpacer_6 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Fixed)
+        self.verticalSpacer_6 = QSpacerItem(20, 50, QSizePolicy.Minimum, QSizePolicy.Fixed)
 
         self.gridLayout.addItem(self.verticalSpacer_6, 3, 1, 1, 1)
 
@@ -541,12 +537,17 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.frame, 1, 2, 2, 1)
 
-        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer_3 = QSpacerItem(20, 200, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.gridLayout.addItem(self.verticalSpacer_3, 5, 1, 2, 1)
 
         self.frame_5 = QFrame(self.pomodoro_appPage2)
         self.frame_5.setObjectName(u"frame_5")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.frame_5.sizePolicy().hasHeightForWidth())
+        self.frame_5.setSizePolicy(sizePolicy1)
         self.frame_5.setStyleSheet(u"background: None")
         self.frame_5.setFrameShape(QFrame.StyledPanel)
         self.frame_5.setFrameShadow(QFrame.Raised)
