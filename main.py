@@ -148,7 +148,6 @@ class MainWindow(QMainWindow):
         self.pomodoro_button.released.connect(lambda: print(f"{self.pomodoro_button.objectName()}: released"))
 
 
-
         # SET UI DEFINITIONS
         # Run set_ui_definitions() in the ui_functions.py
         # ///////////////////////////////////////////////////////////////
@@ -204,18 +203,13 @@ class MainWindow(QMainWindow):
     # /////////////////////////////////////////////////////////////
     # 내가 추가한 함수들
 
-    def keyPressEvent(self, event):
-        if event.key() == Qt.Key_CapsLock:
-            self.maximize_minimize()
-            # self.ui.app_pages.setCurrentWidget(self.ui.pomodoro_appPage2)
-
     def closeEvent(self, event):
         if self.timer.pomo_record.recording == True:
             self.timer.pomo_record.end_record()
 
         # event.ignore()
 
-    def maximize_minimize(self):
+    def maximize(self):
 
         # CHANGE UI AND RESIZE GRIP
         def change_ui():
@@ -230,15 +224,9 @@ class MainWindow(QMainWindow):
                 self.top_grip.hide()
                 self.bottom_grip.hide()
 
-        # CHECK EVENT
-        if self.isMaximized():
-            self.is_maximized = False
-            self.showMinimized()
-            change_ui()
-        else:
-            self.is_maximized = True
-            self.showMaximized()
-            change_ui()
+        self.is_maximized = True
+        self.showMaximized()
+        change_ui()
 
     def set_focus_time(self,event):
         if event.key() == Qt.Key_Return or event.key() == Qt.Key_Enter:

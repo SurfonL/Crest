@@ -42,6 +42,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import os
 import sys
 from PySide6 import QtWidgets, QtGui
+from app.modules.ui_functions.functions import UiFunctions
 
 
 class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
@@ -76,8 +77,10 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         :return:
         """
         if reason == self.DoubleClick:
-            self.w.maximize_minimize()
-            # self.w.showNormal()
+
+            # UiFunctions.maximize_restore()
+            self.w.maximize()
+            # self.w.showMaximized()
 
         # if reason == self.Trigger:
         #     self.open_notepad()
